@@ -3,9 +3,8 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Atlantis Lite - Bootstrap 4 Admin Dashboard</title>
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('assets/img/icon.ico')}}" type="image/x-icon"/>
-
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
 	{{-- <link href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/> --}}
@@ -20,12 +19,16 @@
 	</script>
 
 	<!-- CSS Files -->
-	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css')}}">
-	<link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css')}}">
-
-	
 	<link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}">
+	<link rel="stylesheet" href="{{ asset('assets/select2/bootstrap.min.css')}}" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	
+	{{-- css select2 --}}
+	<link rel="stylesheet" href="{{ asset('assets/select2/select2-bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css')}}">
+	
+	
+
 </head>
 <body>
 	<style>
@@ -85,6 +88,7 @@
 		</div>
 		<!-- End Custom template -->
 	</div>
+	
 	<!--   Core JS Files   -->
 	<script src="{{ asset('assets/js/core/jquery.3.2.1.min.js')}}"></script>
 	<script src="{{ asset('assets/js/core/popper.min.js')}}"></script>
@@ -122,11 +126,15 @@
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('assets/js/atlantis.min.js')}}"></script>
-	<script src="{!! asset('assets/select2/select2.full.min.js') !!}"></script>
+
+	{{-- select2 js --}}
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	{{-- <script src="{{ asset('assets/js/setting-demo.js')}}"></script>
 	<script src="{{ asset('assets/js/demo.js')}}"></script> --}}
+	{{-- <script src="{{ asset('assets/select2/jquery.min.js')}}"></script>
+	<script src="{{ asset('assets/select2/select2.min.js')}}"></script> --}}
+	
 	<script>
 		Circles.create({
 			id:'circles-1',
