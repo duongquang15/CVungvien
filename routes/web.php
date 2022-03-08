@@ -22,3 +22,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('create','TicketController@create')->name('create');
+Route::post('stores','TicketController@stores')->name('stores');
+Route::get('add_jobs','TicketController@add_jobs')->name('jobs');
+Route::get('add_levels','TicketController@add_levels')->name('levels');
+Route::post('file','TicketController@download_file');
