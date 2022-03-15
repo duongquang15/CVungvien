@@ -7,9 +7,11 @@ use App\Job;
 use App\Level;
 use App\Ticket;
 use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class TicketController extends Controller
 {
@@ -20,19 +22,19 @@ class TicketController extends Controller
         $level = Level::all();
         $user = User::all();
         $department = Department::all();
-        return view('fontend.create-ticket',compact('name','job','level','user','department'));
+        return view('fontend.tickets.create-ticket',compact('name','job','level','user','department'));
     }
     function stores(Request $request){
         $request->validate([
-        'name'=>'required|min:5|max:255',
-        'job'=>'required|not_in:0',
-        'level'=>'required|not_in:0',
-        'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
-        'status'=>'required|not_in:0',
-        'priority'=>'required|not_in:0',
-        'date-start'=>'required',
-        'date-deadline'=>'required',
-        'department'=>'required',
+            'name'=>'required|unique:tickets|min:5|max:255',
+            'job'=>'required|not_in:0',
+            'level'=>'required|not_in:0',
+            'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
+            'status'=>'required|not_in:0',
+            'priority'=>'required|not_in:0',
+            'date-start'=>'required',
+            'date-deadline'=>'required',
+            'department'=>'required',
         ],
         [
             'required'=>':attribute không được để trống',
@@ -86,7 +88,12 @@ class TicketController extends Controller
                     'user_id'=>$person_chargeID,
                 ]);
             }
-        return redirect('create')->with('status','thêm bài viết thành công');
+        $id = auth()->user()->id;
+            DB::table('assigns')->insert([
+                'ticket_id'=>$TicketCreate->id,
+                'user_id'=>$id,
+            ]);
+        return redirect('create-ticket')->with('status','thêm bài viết thành công');
     }
 
     function add_jobs(Request $request){
@@ -125,7 +132,8 @@ class TicketController extends Controller
     function add_levels(Request $request){
         if ($request->ajax()) {
             $name = $request->input('id');
-            $level = Level::where('id', $name)->get()->first();
+            if($name != 0 ){
+                $level = Level::where('id', $name)->get()->first();
             if(isset($level)){
                 $data = [
                     'name' => $name,
@@ -153,7 +161,66 @@ class TicketController extends Controller
                 ];
             }
             return response()->json(['status' => 200, 'data' => $data]);
+            }
          }
+    }
+
+    function show_levels(Request $request){
+        if ($request->ajax()) {
+            $job = $request->input('job');
+            if($job != 0){
+                $level = Job::find($job)->levels;
+                if(count($level) == 0){
+                    return  response()->json(['status' => 400]);
+                }
+                return response()->json(['status' => 200, 'data' => $level]);
+            }
+            else{
+                return  response()->json(['status' => 400]);
+            }
+        }
+    }
+
+    function edit($id){
+        $name = Auth::user()->name;
+        $job = Job::all();
+        $level = Level::all();
+        $user = User::all();
+        $department = Department::all();
+        $ticket = Ticket::find($id);
+        $ticket_job = Ticket::find($id)->job;
+        $ticket_level = Ticket::find($id)->level;
+        $ticket_department = Ticket::find($id)->departments;
+        $user_assigns = Ticket::find($id)->users;
+        return view('fontend.tickets.edit-ticket', compact('name','ticket','job','ticket_job','ticket_level','user','level','department','ticket_department','user_assigns'));
+    }
+
+    function detail($id){
+        $name = Auth::user()->name;
+        $job = Job::all();
+        $level = Level::all();
+        $user = User::all();
+        $department = Department::all();
+        $ticket = Ticket::find($id);
+        $ticket_job = Ticket::find($id)->job;
+        $ticket_level = Ticket::find($id)->level;
+        $ticket_department = Ticket::find($id)->departments;
+        $user_assigns = Ticket::find($id)->users;
+        return view('fontend.tickets.detail-ticket', compact('name','ticket','job','ticket_job','ticket_level','user','level','department','ticket_department','user_assigns'));
+    }
+
+    function download($id){
+       $ticket = Ticket::find($id);
+       $file = $ticket->cv;
+       echo public_path();
+       
+    $headers = array(
+        'Content-Type: application/pdf',
+      );
+      echo substr('abcdef', 1);     // bcdef
+        return Response::download($file, 'filename.pdf', $headers);
+
+        
     }
 
     
