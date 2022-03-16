@@ -54,3 +54,17 @@ Route::get('/test', function () {
 /**
  * Kết thúc Route Thắng Em ghi
  */
+// Route::get('/resetpass', function () {
+//     return view('auth.resetpass');
+// });
+Route::get('/resetpass','HomeController@reset')->name('reset');
+Route::post('/resetpass','HomeController@resetpass')->name('resetpass');
+Route::get('/changepass','HomeController@changepass')->name('changepass');
+Route::post('/changepass','HomeController@changepassword')->name('changepassword');
+
+
+
+// Route::get('/changepass', function () {
+//     return view('changepass');
+// });
+
