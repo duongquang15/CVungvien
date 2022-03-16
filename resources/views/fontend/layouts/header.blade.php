@@ -2,7 +2,7 @@
 			<div class="logo-header" data-background-color="white">
 				
 				<a href="index.html" class="logo">
-					<img src="{{asset('https://pharma360.vn/images/products/logoominext2-6145.png')}}" alt="navbar brand" class="navbar-brand" style="width: 150px; height: 60px;">
+					<img src="{{asset('assets/img/logoominext2-6145.png')}}" alt="navbar brand" class="navbar-brand" style="width: 150px; height: 60px;">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">

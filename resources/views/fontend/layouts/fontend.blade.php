@@ -23,7 +23,12 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/atlantis.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}">
 	<link rel="stylesheet" href="{{ asset('assets/select2/bootstrap.min.css')}}">
-	
+	<link rel="stylesheet" href="{{ asset('css/top_page.css')}}">
+
+
+	{{-- css button datatables --}}
+	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"> --}}
+
 	{{-- css select2 --}}
 	<link rel="stylesheet" href="{{ asset('assets/select2/select2-bootstrap4.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css')}}">
@@ -121,6 +126,14 @@
 
 	<!-- Datatables -->
 	<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js')}}"></script>
+	<script src="{{ asset('js/datatables.js')}}"></script>
+
+	{{-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script> --}}
 
 	<!-- Bootstrap Notify -->
 	<script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
@@ -142,7 +155,6 @@
 	<script src="{{ asset('assets/js/demo.js')}}"></script> --}}
 	{{-- <script src="{{ asset('assets/select2/jquery.min.js')}}"></script>
 	<script src="{{ asset('assets/select2/select2.min.js')}}"></script> --}}
-	
 	
 
 </body>
