@@ -1,14 +1,7 @@
 @extends('fontend.layouts.master')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script src="{{ asset('assets/select2/jquery.min.js')}}"></script>
-	<script src="{{ asset('assets/select2/select2.min.js')}}"></script>
-   
-</head>
-<body>
+
     <div class="content">
         <div class="page-inner">
             <div class="row">
@@ -18,21 +11,21 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <h1 style="color: blue">Create Ticket</h1>
+                            <h1 style="color: blue">Create Ticket</h1> <a href="{{route('edit-ticket',1)}}">Test edit</a> <a href="{{route('detail-ticket',1)}}">detail-ticket</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
                                         <label for="name">Họ Tên</label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ tên">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ tên" required>
                                         @error('name')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="job">job</label>
-                                        <select class="form-control select2" name="job" id="job" >
+                                        <select class="form-control select2" name="job" id="job" required >
                                             <option value="0">Chọn job</option>
                                             @foreach ($job as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -44,11 +37,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="defaultSelect">level</label>
-                                        <select class="form-control form-control select2" name="level" id="level">
+                                        <select class="form-control form-control select2" name="level" id="level" required>
                                             <option value="0">Chọn level</option>
-                                            @foreach ($level as $key => $item)
+                                            {{-- @foreach ($level as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                         @error('level')
                                         <small class="form-text text-danger">{{$message}}</small>
@@ -56,7 +49,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="cv">Tải CV lên</label><br>
-                                        <input accept="image/*" type="file" id="imgInp" name="file" multiple />
+                                        <input accept="image/*" type="file" id="imgInp" name="file" multiple required />
                                         <img id="blah" src="#" alt="your image" style="width: 150px; height: 100px;" />
                                         @error('file')
                                         <small class="form-text text-danger">{{$message}}</small>
@@ -100,14 +93,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="date-start">Start</label>
-                                        <input type="date" class="form-control" name="date-start" id="date-start"  value="{{old('date-start')}}" placeholder="Nhập ngày deadline">
+                                        <input type="date" class="form-control" name="date-start" id="date-start" value="<?php echo date("Y-m-d");?>" placeholder="Nhập ngày deadline">
                                         @error('date-start')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="date-deadline">Deadline</label>
-                                        <input type="date" class="form-control" name="date-deadline" id="date-deadline"  value="{{old('date-deadline')}}" placeholder="Nhập ngày deadline">
+                                        <input type="date" class="form-control" name="date-deadline" id="date-deadline" value="<?php echo date("Y-m-d");?>" placeholder="Nhập ngày deadline">
                                         @error('date-deadline')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -117,7 +110,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
                                         <label for="person-charge">Người phụ trách</label>
-                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" >
+                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" required >
                                             <option>Chọn người phụ trách</option>
                                             @foreach ($user as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -126,7 +119,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="department">Phòng ban</label>
-                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department" >
+                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department" required >
                                             <option>Chọn phòng ban</option>
                                             @foreach ($department as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -153,98 +146,5 @@
             </div>
         </div>
     </div>
-</body>
-<script>
-    imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-  }
-}
-</script>
-<script>
-    $("#Status,#priority,#person-charge,#department").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true
-    });
-    $("#job").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
 
-        var element = $(this);
-        var new_job = $.trim(element.val());
-        if(new_job != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('jobs') }}",
-                type: 'get',
-                data:{ 'id':new_job},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        job_id = response.data.job_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+job_id+'">'+new_job+'</option>').val(job_id);
-                        }
-                        else {
-                                        
-                        }
-                    }
-                },
-            });
-        }
-    });
-   
-  </script>
-  <script>
-      $("#level").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
-
-        var element = $(this);
-        var new_level = $.trim(element.val());
-        if(new_level != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('levels') }}",
-                type: 'get',
-                data:{ 'id':new_level},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        level_id = response.data.level_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+level_id+'">'+new_level+'</option>').val(level_id);
-                        }
-                        else {
-                                        
-                        }
-                    }
-                },
-            });
-        }
-    });
-  </script>
-</html>
 @endsection

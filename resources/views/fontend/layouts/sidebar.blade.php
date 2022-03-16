@@ -9,7 +9,7 @@
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
                             {{ Auth::user()->name }}
-                            <span class="user-level">{{$name}}</span>
+                            <span class="user-level"></span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -46,74 +46,30 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="components/avatars.html">
-                                    <span class="sub-item">Avatars</span>
+                                <a href="{{route('top_page')}}">
+                                    <span class="sub-item">Tất cả phòng ban</span>
                                 </a>
                             </li>
+                            @foreach ($departments as $department)                                  
                             <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">Buttons</span>
+                                <a href="{{route('top_page_by_department', ['id' => $department->id])}}">
+                                    <span class="sub-item">{{$department->name}}</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/panels.html">
-                                    <span class="sub-item">Panels</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/notifications.html">
-                                    <span class="sub-item">Notifications</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/sweetalert.html">
-                                    <span class="sub-item">Sweet Alert</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/font-awesome-icons.html">
-                                    <span class="sub-item">Font Awesome Icons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/simple-line-icons.html">
-                                    <span class="sub-item">Simple Line Icons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/flaticons.html">
-                                    <span class="sub-item">Flaticons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/typography.html">
-                                    <span class="sub-item">Typography</span>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="widgets.html">
-                        <i class="fas fa-desktop"></i>
-                        <p>EXPORT CSV/EXCEL</p>
+                    <a href="{{route('table_data_users')}}">
+                        <i class="fas fa-users"></i>
+                        <p>QUẢN LÍ TÀI KHOẢN</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="widgets.html">
-                        <i class="fas fa-th-list"></i>
-                        <p>MANAGEMENT</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="widgets.html">
-                        <i class="fas fa-home"></i>
-                        <p>LOGOUT</p>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <p>ĐĂNG XUẤT</p>
                     </a>
                 </li>
             </ul>
