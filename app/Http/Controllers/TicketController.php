@@ -106,7 +106,8 @@ class TicketController extends Controller
                 ];
             }
             else{
-                $jobs_count = DB::table('jobs')
+                if($name != '' || $name!=0){
+                    $jobs_count = DB::table('jobs')
                 ->where('name', '=', $name)
                 ->count();
                 if ($jobs_count < 1) {
@@ -114,7 +115,7 @@ class TicketController extends Controller
                         'name' => $name,
                         'description' => $name,
                     ]);
-                    $job_id = $jobCreate->id;
+                    $job_id = Job::max('id');
                     $data = [
                         'name' => 'yes',
                         'job_id'=> $job_id,
@@ -125,45 +126,55 @@ class TicketController extends Controller
                     'name' => 'yes',
                     'job_id'=>$job_id,
                 ];
+                }
             }
             return response()->json(['status' => 200, 'data' => $data]);
          }
     }
     function add_levels(Request $request){
         if ($request->ajax()) {
+            $job = $request->input('job');
             $name = $request->input('id');
-            if($name != 0 ){
+            // if($name != 0 ){
                 $level = Level::where('id', $name)->get()->first();
-            if(isset($level)){
-                $data = [
-                    'name' => $name,
-                ];
-            }
-            else{
-                $levels_count = DB::table('levels')
-                ->where('name', '=', $name)
-                ->count();
-                if ($levels_count < 1) {
-                    $levelCreate = Level::create([
-                        'name' => $name,
-                        'description' => $name,
-                    ]);
-                    $level_id = $levelCreate->id;
+                if(isset($level)){
                     $data = [
-                        'name' => 'yes',
-                        'level_id'=> $level_id,
+                        'name' => $name,
                     ];
                 }
-                $level_id = Level::max('id');
-                $data = [
-                    'name' => 'yes',
-                    'level_id'=>$level_id,
-                ];
-            }
+                else{
+                    $levels_count = DB::table('levels')
+                    ->where('name', '=', $name)
+                    ->count();
+                        if ($levels_count < 1) {
+                            if($job != '0' && $job != 'null'){
+                                $levelCreate = Level::create([
+                                    'name' => $name,
+                                    'description' => $name,
+                                ]);
+                                $level_id = Level::max('id');
+                                DB::table('job_level')->insert([
+                                    'job_id' => $job,
+                                    'level_id'=> $level_id,
+                                ]);
+                                $data = [
+                                    'name' => 'yes',
+                                    'level_id'=> $level_id,
+                                ];
+                            }
+                            
+                        }
+                    $level_id = Level::max('id');
+                    $data = [
+                        'name' => 'yes',
+                        'level_id'=>$level_id,
+                    ];
+                }
             return response()->json(['status' => 200, 'data' => $data]);
-            }
+            // }
          }
     }
+
 
     function show_levels(Request $request){
         if ($request->ajax()) {
@@ -209,19 +220,18 @@ class TicketController extends Controller
         return view('fontend.tickets.detail-ticket', compact('name','ticket','job','ticket_job','ticket_level','user','level','department','ticket_department','user_assigns'));
     }
 
-    function download($id){
-       $ticket = Ticket::find($id);
-       $file = $ticket->cv;
-       echo public_path();
+    // function download($id){
+    //    $ticket = Ticket::find($id);
+    //    $file = asset($ticket->cv);
+      
        
-    $headers = array(
-        'Content-Type: application/pdf',
-      );
-      echo substr('abcdef', 1);     // bcdef
-        return Response::download($file, 'filename.pdf', $headers);
+    // $headers = array(
+    //     'Content-Type: application/pdf',
+    //   );
+    //     return Response::download($file, 'filename.pdf', $headers);
 
         
-    }
+    // }
 
     
 }

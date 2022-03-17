@@ -25,8 +25,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="job">job</label>
-                                        <select class="form-control select2" name="job" id="job" required >
-                                            <option value="0">Chọn job</option>
+                                        <select class="form-control form-control select2" name="job" id="job" required >
+                                            <option value>Chọn job</option>
                                             @foreach ($job as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach
@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label for="defaultSelect">level</label>
                                         <select class="form-control form-control select2" name="level" id="level" required>
-                                            <option value="0">Chọn level</option>
+                                            {{-- <option value="0">Chọn level</option> --}}
                                             {{-- @foreach ($level as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach --}}

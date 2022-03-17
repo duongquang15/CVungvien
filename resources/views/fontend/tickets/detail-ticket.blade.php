@@ -33,7 +33,6 @@
                                     <div class="form-group">
                                         <label for="job">job</label>
                                         <select class="form-control select2" name="job" id="job" disabled >
-                                            <option value="0">Chọn job</option>
                                             @foreach ($job as $key => $item)
                                                 <option <?php if($ticket_job->name == $item['name']) echo "selected" ?> value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach
