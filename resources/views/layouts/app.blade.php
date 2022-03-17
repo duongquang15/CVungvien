@@ -25,15 +25,18 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
-    
-
     <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+
+    <!-- validate -->
+    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('js/additional-methods.min.js')}}"></script>
     
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="nav1">
-            <div class="container-fluid" style="background-color: red;padding:0px">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name','OMINEXT') }}
                 </a>

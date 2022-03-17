@@ -4,73 +4,46 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card" >
+            <div class="card">
                 <div class="card-header">
-                    <!-- <div class="logo"><img src="{{asset('images/logo3.jpg')}}"></div> -->
-                    <label class="form-check-label">{{ __('Change Password') }}</label>
+                <img src="{{asset('assets/img/ominext1.png')}}" alt="" style="width: 200px;;border-radius:0.25em">
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('changepassword') }}">
+                    <form method="POST" id="myform" action="{{ route('changepassword') }}">
                         @csrf
-                        
-                        <div class="form-group row" >
-                            <div class="col-md-12" >  
-                            <div class="changepass"> 
-                                    <input id="old-password" type="password" class="form-control @error('password')  @enderror" name="old_password" value="{{ old('password') }}"  placeholder="Mật khẩu cũ">
-                                    <i class="fa fa-eye"  aria-hidden="true" onclick="myFunction()"></i>
-                                </div>
-                                    @error('old_password')
-                                        <p class="invalid-feedback" role="alert" style="margin-left:10%">
-                                            <strong style="top:-20px">{{ $message }}</strong>
-                                        </p>
-                                    @enderror 
-                               
+                        <div class="form-group row">
+                            <!-- <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> -->
+
+                            <div class="col-12">
+                                <input id="current_pass" type="password" class="form-control" name="current_pass" autocomplete="email" autofocus placeholder="Mật khẩu cũ" style="width:380px">
+
+                                
                             </div>
                         </div>
 
-                        <div class="form-group row" >
-                            <div class="col-md-12" >  
-                                <div class="changepass"> 
-                                     <!-- <i class="fa fa-users" aria-hidden="true"s></i> -->
-                                    <input id="password" type="password" class="form-control @error('password')  @enderror" name="password" value="{{ old('password') }}"  placeholder="Mật khẩu mới" onkeyup="check()">
-                                   <i class="fa fa-eye"  aria-hidden="true" onclick="myFunction1()"></i>
-                                   
-                                </div>
-                                    @error('password')
-                                        <p class="invalid-feedback" role="alert" style="margin-left:10%">
-                                            <strong style="top:-20px">{{ $message }}</strong>
-                                        </p>
-                                    @enderror
+                        <div class="form-group row">
+                            <!-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> -->
+
+                            <div class="col-12">
+                                <input id="password" type="password" class="form-control" name="password"  autocomplete="new-password" placeholder="Mật khẩu mới" style="width:380px">
+
                                 
                             </div>
                         </div>
-                        <div class="form-group row" >
-                            <div class="col-md-12" >  
-                            
-                                <div class="changepass">
-                                   <!-- <i class="fa fa-key" aria-hidden="true"></i> -->
-                                    <input id="confirm-password" type="password" class="form-control @error('password') @enderror" name="confirm_password" placeholder="Nhập lại mật khẩu" onkeyup="check()"> 
-                                    <i class="fa fa-eye"  aria-hidden="true" onclick="myFunction2()"></i>
 
-                                
-                               </div>
+                        <div class="form-group row">
+                            <!-- <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
 
-                                    @error('confirm_password')
-                                        <p class="invalid-feedback" role="alert" style="margin-left:10%">
-                                            <strong style="top:-20px">{{ $message }}</strong>
-                                        </p>
-                                    @enderror
-                               
+                            <div class="col-12">
+                                <input id="password-confirm" type="password" class="form-control" name="confirm_password"  autocomplete="new-password" placeholder="Nhập lại mật khẩu mới" style="width:380px">
                             </div>
                         </div>
-
-                        
 
                         <div class="form-group row mb-0">
-                            <div class="submit_login col-md-12">
-                                <button type="submit" class="btn btn-primary_1" onclick="password()">
-                                    {{ __('Reset') }}
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Reset Password') }}
                                 </button>
                             </div>
                         </div>
@@ -80,10 +53,112 @@
         </div>
     </div>
 </div>
-@endsection
-<!-- <script>
-function myFunction() {
-  var x = document.getElementById("old-password");
+
+
+<script>
+// just for the demos, avoids form submit
+
+$( "#myform" ).validate({
+  rules: {
+    current_pass: {
+      required: true,
+      minlength: 6,
+      maxlength:10,
+    },
+    password: {
+      required: true,
+      minlength: 6,
+      maxlength:10,
+    },
+    confirm_password: {
+      required: true,
+      equalTo: "#password",    
+    }
+  },
+  messages: {
+    current_pass: {
+        required:"Nhập mật khẩu cũ",
+        minlength:"Nhập sai password",
+        maxlength:"Nhập sai password",
+    },
+    password: {
+        required:"Nhập mật khẩu mới",
+        minlength:"Nhập sai password",
+        maxlength:"Nhập sai password",
+    },
+    confirm_password: {
+        required:"Nhập lại mật khẩu mới",
+        equalTo: "Mật khẩu không giống nhau!",
+    }
+  }
+});
+</script>
+<!-- <style>
+    #field{margin-left:.5em;float:left}#field,label{float:left;font-family:Arial,Helvetica,sans-serif;font-size:small}br{clear:both}input{border:1px solid #ADD8E6;margin-bottom:.5em}input.error{border:1px solid red}label.error{background:url({{asset('assets/img/nhando.png')}}) no-repeat;padding-left:16px;margin-left:.3em}label.valid{background:url({{asset('assets/img/tich.png')}}) no-repeat;display:block;width:16px;height:16px}
+    label.error{
+        margin-left:52px;
+        margin-top: -22px;
+    }
+    label.valid{
+        margin-top:-45px!important;
+    }
+    #myform{
+     
+      width: 424px;
+      
+      
+      border-radius: 25px;
+    }
+    label.valid{
+        float:right;
+        margin-top:25px;
+    }
+    label.error{
+        color: red;
+        
+    }
+    .left{
+        width: 300px;
+        margin-left: 16%;
+        margin-bottom: 25px;
+        border-radius: 3px;
+        font-size: 16px;
+        margin-top: 14px;
+        border: 1px solid #ced4da;
+    }
+    .left:hover{
+      box-shadow: 0 0 0 0.2rem rgb(52 144 220 / 25%);
+      
+    }
+    .left1{
+        margin-left: 36%;
+        margin-top: 20px;
+        border-radius: 5px;
+        background: #fa8c1e;
+        width: 105px;
+        border: none;
+        font-size: 18px;
+        color: white;
+    }
+    .left1:hover{
+        color: white;
+        background:#FF9900 ;
+        transition: background 1.5s linear;
+        border-radius: 5px;
+        
+    }
+    .change{
+      /* display:flex; */
+    }
+</style> -->
+<style>
+  .error{
+    margin:0;
+  }
+</style>
+<script>
+  function myFunction() {
+  var x = document.getElementById("old_password");
   if (x.type === "password") {
     x.type = "text";
   } else {
@@ -100,23 +175,15 @@ function myFunction1() {
   }
 }
 function myFunction2() {
-  
-  var x = document.getElementById("confirm-password");
+  var x = document.getElementById("confirm_password");
   if (x.type === "password") {
     x.type = "text";
   } else {
     x.type = "password";
   }
 }
-//
-function password() {
-    var fpw = document.getElementById("password").value;
-    var spw = document.getElementById("confirm-password").value;
-    if (fpw==spw) {
-        document.getElementById(confirm-password).innerHTML = "Mật khẩu đã khớp";
-    } else {
-        document.getElementById(confirm-password).innerHTML = "<span color=’red’>Mật khẩu chưa khớp</span>";
-    }
-}
 
-</script> -->
+
+</script>
+@endsection
+
