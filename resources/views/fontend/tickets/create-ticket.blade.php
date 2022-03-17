@@ -11,7 +11,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <h1 style="color: blue">Create Ticket</h1> <a href="{{route('edit-ticket',1)}}">Test edit</a> <a href="{{route('detail-ticket',1)}}">detail-ticket</a>
+                            <h1 style="color: blue">Create Ticket</h1>
                         </div>
                         <div class="card-body">
                             <div class="row">

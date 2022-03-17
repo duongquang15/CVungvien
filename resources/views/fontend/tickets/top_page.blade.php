@@ -8,7 +8,7 @@
         <nav aria-label="breadcrumb" role="navigation">
           <ol class="breadcrumb adminx-page-breadcrumb">
             <li class="breadcrumb-item"><a href="#">Danh sách Ticket</a></li>
-            <li class="breadcrumb-item active  aria-current="page">{{$department_name}}</li>
+            <li class="breadcrumb-item active"  aria-current="page">{{$department_name}}</li>
           </ol>
         </nav>
   
@@ -18,20 +18,12 @@
         <div class="row">
           <div class="col">
             <div class="box-export-excel">
-              <button class="btn btn-sm btn-success">Tạo Ticket</button>
-              <a href="#" class="btn btn-sm btn-success">Export Excel</a>
+              <a href="{{route('create')}}" class="btn btn-success">Tạo Ticket</a>
+              <a href="#" class="btn btn-primary">Export Excel</a>
               {{-- <a href="{{route('export_tickets')}}" class="btn btn-sm btn-success">Export Excel</a> --}}
             </div>
           </div>
         </div> 
-        <!-- <div class="row">
-          <div class="col">
-            <div class="alert alert-warning" role="alert">
-              <strong>Chú ý</strong><br />
-              Export excel sẽ giúp bạn tải xuống toàn bộ danh sách ticket bạn đang thấy với định dạng csv hoặc xlsx.
-            </div>
-          </div>
-        </div> -->
 
         <div class="row">
           <div class="col">
@@ -58,9 +50,24 @@
                       <td>{{$stt++}}</td>
                       <td>{{$ticket->name}}</td>
                       <td>{{$ticket->job->name}}</td>
-                      <td>{{$ticket->level->id}}  {{$ticket->level->name}} </td>
-                      <td><span class="badge badge-pill badge-primary">{{$ticket->status}}</span></td>
-                      <td><span class="badge badge-pill badge-primary">{{$ticket->priority}}</span></td>
+                      <td>{{$ticket->level->name}} </td>
+                      <td><span class="badge badge-pill badge-primary"><?php if($ticket->status ==1) echo'Request review' ?>
+                        <?php if($ticket->status ==2) echo'Đồng ý phỏng vấn' ?>
+                        <?php if($ticket->status ==3) echo'Loại' ?>
+                        <?php if($ticket->status ==4) echo'Setup phỏng vấn' ?>
+                        <?php if($ticket->status ==5) echo'Offer' ?>
+                        <?php if($ticket->status ==6) echo'Nhận offer' ?>
+                        <?php if($ticket->status ==7) echo'Từ chối offer' ?>
+                        <?php if($ticket->status ==8) echo'Đã check in' ?>
+                        <?php if($ticket->status ==9) echo'Pending' ?>
+                        <?php if($ticket->status ==10) echo'Closed' ?>
+                      </span></td>
+                      <td><span class="badge badge-pill badge-primary"><?php if($ticket->priority==1) echo'Low' ?>
+                        <?php if($ticket->priority==2) echo'Normal' ?>
+                        <?php if($ticket->priority==3) echo'High' ?>
+                        <?php if($ticket->priority==4) echo'Urgent'?>
+                        <?php if($ticket->priority==5) echo'Immediate' ?>
+                      </span></td>
                       <td>{{date("d-m-Y", strtotime($ticket->start))}} {{date("d-m-Y", strtotime($ticket->deadline))}}</td>
                       <td>
                         @foreach ($ticket->users as $user_assign)
@@ -69,8 +76,8 @@
                       </td>
                       <td>
                         <div class="action_box">
-                          <a href="#" class="btn btn-sm btn-primary">Xem</a>
-                          <a href="#" class="btn btn-sm btn-warning">Sửa</a>
+                          <a href="{{route('detail-ticket',$ticket->id)}}" class="btn btn-sm btn-primary">Xem</a>
+                          <a href="{{route('edit-ticket',$ticket->id)}}" class="btn btn-sm btn-warning">Sửa</a>
                         </div>
                       </td>
                     </tr>

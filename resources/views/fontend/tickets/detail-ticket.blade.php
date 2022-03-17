@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="cv">Tải CV lên</label><br>
-                                        <a href="{{route('download',$ticket->id)}}">Test edit</a>
+                                        <a href="{{route('download',$ticket->id)}}">Tải cv</a><br>
                                         <img id="blah" src="{{asset($ticket->cv)}}" alt="your image" style="width: 150px; height: 100px;" />
                                     </div>
                                 </div>
