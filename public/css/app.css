@@ -2082,7 +2082,7 @@ textarea.form-control {
     display: flex;
 }
 .form-group .forgot{
-    display: flex;
+    /* display: flex; */
 }
 .form-group .register{
     /*display: flex;*/
@@ -2151,22 +2151,21 @@ textarea.form-control {
     background: #1269db;
 }
 .submit_login .btn-primary_1{
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(18,105,219,1) 21%, rgba(0,212,255,1) 100%);
+    background: #1269db;
     width: 40%;
     margin-left: 32%;
     color: white;
     
 }
 .submit_login .btn-primary_1:hover{
-    color: white;
-    background:#1269db ;
+    color: whitesmoke;
+    background:#ff9102 ;
     transition: background 3s linear;
     border-radius: 5px;
-  box-shadow: 0 0 5px #FF9900,
+  /* box-shadow: 0 0 5px #FF9900,
               0 0 25px #FF9900,
               0 0 50px #FF9900,
-              0 0 100px #FF9900;
+              0 0 100px #FF9900; */
     
 }
 .btn-link{
@@ -2177,14 +2176,15 @@ textarea.form-control {
     height: 50px;
 }
 .container .row .col-md-8 .card .card-header{
-    background: rgb(184,174,174);
-    background: linear-gradient(90deg, rgba(184,174,174,1) 23%, rgba(36,111,208,1) 66%);
+    background: aliceblue;
+    /* background: rgb(184,174,174);
+    background: linear-gradient(90deg, rgba(184,174,174,1) 23%, rgba(36,111,208,1) 66%); */
 }
 .container .row .col-md-8 .card .card-header:hover{
-    background: #1269db;
+    /* background: #1269db; */
 }
 .card-header label{
-    color: white;
+    color: darkblue;
     font-size: 20px;
 }
 .form-text {
@@ -2198,7 +2198,7 @@ textarea.form-control {
 .login input{
     margin-top: 35px;
     width: 350px;
-    margin-left: 19px;
+    margin-left: 30px;
 }
 .login i{
     padding-top: 45px;
@@ -2216,7 +2216,7 @@ textarea.form-control {
 }
 .login1{
     justify-content: center;
-    display: flex;
+    /* display: flex; */
 }
 .login1 i{
     padding-top: 45px;
@@ -2233,6 +2233,11 @@ textarea.form-control {
 .login1 input{
     margin-top: 35px;
     width: 350px;
+    margin-left: 30px;
+}
+.error{
+    color: red;
+    margin-left: 30px;
 }
 .login1 .toggle-password{
     margin-top: 42px;
@@ -2645,7 +2650,7 @@ textarea.form-control.is-invalid {
 
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
-
+    
 }
 
 a.btn.disabled,
@@ -2657,14 +2662,14 @@ fieldset:disabled a.btn {
     color: #fff;
     /*background-color: #3490dc;
     border-color: #3490dc;*/
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(18,105,219,1) 21%, rgba(0,212,255,1) 100%);
+    background: #2176bd;
+    
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #227dc7;
-    border-color: #2176bd;
+    /* background-color: darkgray;
+    border-color: darkgray; */
 }
 
 .btn-primary:focus,
@@ -4968,12 +4973,12 @@ input[type=button].btn-block {
     color: white;
 }
 .card-body {
-
+    background: aliceblue;
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1.25rem;
-    background: rgb(184,174,174);
-background: linear-gradient(90deg, rgba(184,174,174,1) 23%, rgba(36,111,208,1) 66%);
+    /* background: rgb(184,174,174);
+background: linear-gradient(90deg, rgba(184,174,174,1) 23%, rgba(36,111,208,1) 66%); */
 }
 
 .card-title {
@@ -8415,7 +8420,7 @@ button.bg-dark:focus {
 
 .pt-4,
 .py-4 {
-    background-color: #dddd;
+    background-color: white;
     padding-top: 1.5rem !important;
     height: 1000px;
 

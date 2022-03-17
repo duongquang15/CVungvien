@@ -3,15 +3,11 @@
 @section('content')
 
 
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-
-<form id="myform" style="margin-left:auto;margin-right:auto;background:#0f254f;">
+<form id="myform" style="margin-left:auto;margin-right:auto;background: aliceblue;border-radius: 0.25em;border: 1px solid rgba(0, 0, 0, 0.125);">
     <!-- <div style="height: 30px;"><label for="" style="margin-left: 27%;color:white;margin-top: 4%;font-size: 17px;">CHANGE PASSWORD</label></div><hr> -->
     <div class="card-header">
-                    <img src="{{asset('assets/img/ominext.png')}}" alt=""style="height:50px;width:155px"> 
+                    <img src="{{asset('assets/img/ominext1.png')}}" alt=""style="height:50px;width:155px"> 
                 </div>
         
     <div class="change">
@@ -26,7 +22,7 @@
 
     </div>
     
-<div style=""><input class="left1" type="submit" value="Reset"></div>
+<div style=""><input class="btn btn-primary" type="submit" value="Reset" style="margin-top: 10px;margin-left: 170px;width: 100px;margin-bottom: 25px;"></div>
 </form>
 <script>
 // just for the demos, avoids form submit
@@ -76,7 +72,8 @@ $( "#myform" ).validate({
     }
     label.error{
         color: red;
-        
+        margin-left:52px;
+        margin-top: -22px;
     }
     .left{
         width: 300px;
