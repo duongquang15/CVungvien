@@ -13,12 +13,12 @@
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{route('stores')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('update-ticket',$ticket->id)}}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <h1 style="color: blue">Create Ticket</h1>
+                            <h1 style="color: blue">Edit Ticket</h1>
                         </div>
                         <div class="card-body">
                             <div class="row">

@@ -14,15 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'DepartmentController@showTicket')->name('home');
+
 Route::get('create-ticket','TicketController@create')->name('create');
 Route::get('edit-ticket/{id}','TicketController@edit')->name('edit-ticket');
+Route::post('update-ticket/{id}','TicketController@update')->name('update-ticket');
 Route::get('detail-ticket/{id}','TicketController@detail')->name('detail-ticket');
 Route::get('download/{id}','TicketController@download')->name('download');
 
