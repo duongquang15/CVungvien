@@ -237,5 +237,116 @@ class TicketController extends Controller
         
     // }
 
+    function update(Request $request, $id){
+        $request->validate([
+            'name'=>'required|min:5|max:255',
+            'job'=>'required|not_in:0',
+            'level'=>'required|not_in:0',
+            'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
+            'status'=>'required|not_in:0',
+            'priority'=>'required|not_in:0',
+            'date-start'=>'required',
+            'date-deadline'=>'required',
+            'department'=>'required',
+        ],
+        [
+            'required'=>':attribute không được để trống',
+            'min'=>':attribute độ dài phải trên 5 ký tự',
+            'max'=>':attribute độ dài phải dưới 255 ký tự',
+            'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
+            'not_in'=>':attribute Không được để trống',
+        ],
+        [
+            'name'=>'Họ Tên',
+            'job'=>'Job',
+            'price'=>'Level',
+            'file'=>'File tải lên',
+            'status'=>'Status',
+            'priority'=>'Độ ưu tiên',
+            'date-start'=>'Ngày bắt đầu',
+            'date-deadline'=>'Ngày kết thúc',
+            'department'=>'Phòng Ban'
+        ]);
+        if($request->hasFile('file')){
+            $file= $request->file;
+            $filename= $file->getClientOriginalName();
+            $thumbnail = "uploads/".$filename;
+            $file->move('public/uploads/', $file->getClientOriginalName());
+
+        }
+       
+        $ticket1 = DB::table('tickets')->where('id', '=', $id)->get();
+        $ticket_request = $request->all();
+        $change = [];
+        $name = auth()->user()->name;
+        foreach($ticket1 as $item){
+            if($item->name != $request->input('name')){
+                 $change['name']=$name.'Thay đổi name';
+            }
+            echo($change['name']);
+            if($item->job_id != $request->input('job')){
+                $change['job'] = $name .' '.'đã thay đổi job';
+            }
+            if($item->level_id != $request->input('level')){
+                $change['level'] = $name .' '.'đã thay đổi level';
+            }
+            if($item->cv != $thumbnail){
+                $change['cv'] = $name .' '.'đã thay đổi cv';
+            }
+            if($item->status != $request->input('status')){
+                $change['status'] = $name .' '.'đã thay đổi status';
+            }
+            if($item->start != $request->input('date-start')){
+                $change['start'] = $name .' '.'đã thay đổi date-start';
+            }
+            if($item->deadline != $request->input('date-dealine')){
+                $change['deadline'] = $name .' '.'đã thay đổi date-deadline';
+            }
+            if($item->priority != $request->input('priority')){
+                $change['priority'] = $name .' '.'đã thay đổi priority';
+            }
+            if($item->description != $request->input('description')){
+                $change['description'] = $name .' '.'đã thay đổi description';
+            }
+        }
+        // print_r($change);
+        //     Ticket::where('id',$id)->update([
+        //     'name' => $request->input('name'), 
+        //     'job_id' => $request->input('job'),
+        //     'cv' => $thumbnail ,
+        //     'level_id' => $request->input('level'),
+        //     'status' => $request->input('status'),
+        //     'start' => $request->input('date-start'),
+        //     'deadline' => $request->input('date-deadline'),
+        //     'priority' => $request->input('priority'),
+        //     'user_id' =>  $request->user()->id ,
+        //     'description'=>$request->input('description'),
+        //     foreach ($change as $value) {
+        //         echo ('person_change' => $value['name']);
+        //     }
+        // ]);
+        // $departments = $request->department;
+        //     foreach ($departments as $departmentID) {
+        //         DB::table('department_ticket')->insert([
+        //             'department_id'=>$TicketCreate->id,
+        //             'ticket_id'=>$departmentID,
+        //         ]);
+        //     }   
+
+        // $person_charges = $request->person_charge;
+        //     foreach ($person_charges as $person_chargeID) {
+        //         DB::table('assigns')->insert([
+        //             'ticket_id'=>$TicketCreate->id,
+        //             'user_id'=>$person_chargeID,
+        //         ]);
+        //     }
+        // $id = auth()->user()->id;
+        //     DB::table('assigns')->insert([
+        //         'ticket_id'=>$TicketCreate->id,
+        //         'user_id'=>$id,
+        //     ]);
+        // return redirect('create-ticket')->with('status','thêm bài viết thành công');
+    }
+
     
 }
