@@ -29,15 +29,24 @@
                             <div class="col-md-12" >  
                                 <div class="login"> 
                                      <!-- <i class="fa fa-users" aria-hidden="true"s></i> -->
-                                    <input id="email" type="email" class="form-control" name="email" placeholder="Tên đăng nhập">
-                                   
+                                    <input id="email" type="email" maxlength="255" class="form-control @error('email') @enderror" name="email" placeholder="UserID">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong style="margin-left: 30px;"><?php if($message == 'These credentials do not match our records.') echo('Nhập sai password');else{echo($message);} ?></strong>
+                                    </span>
+                                    @enderror
                                     
                                 </div>
                                 
                                 <div class="login1">
-                                   <!-- <i class="fa fa-key" aria-hidden="true"></i> -->
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="Mật khẩu"> <br/>
+                                   
+                                    <input id="password" type="password" maxlength="10" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Pass"> <br/>
                                     <!-- <i class="fa fa-eye"  aria-hidden="true" onclick="myFunction()"></i> -->
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                </div>
                               
 
@@ -54,9 +63,9 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember" style="color:darkblue">
+                                    <!-- <label class="form-check-label" for="remember" style="color:darkblue">
                                         {{ __('Remember Me') }}
-                                    </label>
+                                    </label> -->
                                 </div>
                             </div>
                         
@@ -68,8 +77,8 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link offset-md-12" href="{{ route('password.request') }}" style="color:darkblue">
-                                        {{ __('Forgot Your Password?') }}
+                                    <a class="btn btn-link offset-md-12" href="{{ route('password.request') }}" style="color:darkblue;margin-left: 147px">
+                                        {{ __('Forgot Password?') }}
                                     </a>
                                 @endif
                             </div>
@@ -103,6 +112,7 @@ function myFunction() {
         required: true,
         minlength: 6,
         maxlength:10,
+        regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/,
       }
     },
     messages: {
@@ -114,6 +124,7 @@ function myFunction() {
         required: "Chưa nhập password",
         minlength: "Nhập sai password",
         maxlength:"Nhập sai password",
+        regex:"ko đúng định dạng",
       }
     }
   });

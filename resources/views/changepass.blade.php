@@ -16,7 +16,7 @@
                             <!-- <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> -->
 
                             <div class="col-12">
-                                <input id="current_pass" type="password" class="form-control" name="current_pass" autocomplete="email" autofocus placeholder="Mật khẩu cũ" style="width:380px">
+                                <input id="current_pass" type="password" maxlength="10" class="form-control" name="current_pass" autocomplete="email" autofocus placeholder="Old pass" style="width:380px">
 
                                 
                             </div>
@@ -26,7 +26,7 @@
                             <!-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> -->
 
                             <div class="col-12">
-                                <input id="password" type="password" class="form-control" name="password"  autocomplete="new-password" placeholder="Mật khẩu mới" style="width:380px">
+                                <input id="password" type="password"maxlength="10" class="form-control" name="password"  autocomplete="new-password" placeholder="New pass" style="width:380px">
 
                                 
                             </div>
@@ -36,14 +36,14 @@
                             <!-- <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
 
                             <div class="col-12">
-                                <input id="password-confirm" type="password" class="form-control" name="confirm_password"  autocomplete="new-password" placeholder="Nhập lại mật khẩu mới" style="width:380px">
+                                <input id="password-confirm" maxlength="10" type="password" class="form-control" name="confirm_password"  autocomplete="new-password" placeholder="Confirm pass" style="width:380px">
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
+                                    {{ __('Change Password') }}
                                 </button>
                             </div>
                         </div>
@@ -77,18 +77,18 @@ $( "#myform" ).validate({
   },
   messages: {
     current_pass: {
-        required:"Nhập mật khẩu cũ",
-        minlength:"Nhập sai password",
-        maxlength:"Nhập sai password",
+        required:"Chưa nhập Old pass",
+        minlength:"Nhập sai Old pass",
+        maxlength:"Nhập sai Old pass",
     },
     password: {
-        required:"Nhập mật khẩu mới",
-        minlength:"Nhập sai password",
-        maxlength:"Nhập sai password",
+        required:"Chưa nhập New pass",
+        minlength:"Nhập sai New pass",
+        maxlength:"Nhập sai New pass",
     },
     confirm_password: {
-        required:"Nhập lại mật khẩu mới",
-        equalTo: "Mật khẩu không giống nhau!",
+        required:"Chưa nhập Confirm pass",
+        equalTo: "Nhập sai Confirm pass!",
     }
   }
 });
