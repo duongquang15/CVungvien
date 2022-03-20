@@ -9,7 +9,18 @@
    
 </head>
 <body>
+    <style>
+       .form-control:disabled, .form-control[readonly] {
+    opacity: .90!important;
+   
+}
+    </style>
     <div class="content">
+        @if (session('status'))
+        <div class="alert alert-primary">
+            {{session('status')}}
+        </div>
+        @endif
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
@@ -18,7 +29,8 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <h1 style="color: blue">Create Ticket</h1>
+                            <input type="" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px" value="Back" onclick="history.go(-1);">
+                            <a href="{{route('edit-ticket',$ticket->id)}}" class=" btn btn-primary float-right text-center " style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">EDIT/UPDATE</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -54,9 +66,9 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="cv">Tải CV lên</label><br>
-                                        <a href="{{route('download',$ticket->id)}}">Tải cv</a><br>
-                                        <img id="blah" src="{{asset($ticket->cv)}}" alt="your image" style="width: 150px; height: 100px;" />
+                                        {{-- <label for="cv">Tải CV lên</label><br> --}}
+                                        <a href="{{route('download',$ticket->id)}}">{{$ticket->cv}}</a><br>
+                                        {{-- <img id="blah" src="{{asset($ticket->cv)}}" alt="your image" style="width: 150px; height: 100px;" /> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">		
@@ -141,6 +153,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-action">
+                            <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <label for="description">Người thao tác</label>
+                                <h4>{{$ticket->change}}</h4>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label for="description">Thời gian thao tác</label>
+                                <h5>{{$ticket->updated_at}}</h5>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label for="description">Nội dung thao tác</label>
+                                <h5>{{$ticket->person_change}}</h5>
+                            </div>
+                            </div>
+                        </div>
                     </form>
                     </div>
                 </div>
@@ -149,109 +177,6 @@
     </div>
 </body>
 
-<script>
-    $("#Status,#priority,#person-charge,#department").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true
-    });
-    $("#job").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
 
-        var element = $(this);
-        var new_job = $.trim(element.val());
-        if(new_job != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('jobs') }}",
-                type: 'get',
-                data:{ 'id':new_job},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        job_id = response.data.job_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+job_id+'">'+new_job+'</option>').val(job_id);
-                        }
-                        else {
-                                        
-                        }
-                    }
-                },
-            });
-        }
-    });
-   
-  </script>
-  <script>
-      $("#level").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
-
-        var element = $(this);
-        var new_level = $.trim(element.val());
-        if(new_level != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('levels') }}",
-                type: 'get',
-                data:{ 'id':new_level},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        level_id = response.data.level_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+level_id+'">'+new_level+'</option>').val(level_id);
-                        }
-                    }
-                },
-            });
-        }
-    });
-  </script>
-
-  <script>
-    $('#date-start').on('change', function () {
-        var start = document.getElementById('date-start').value;
-        var deadline = document.getElementById('date-deadline').value;
-        const date1 = new Date(start);
-        const date2 = new Date(deadline);
-        if(date1 > date2){
-            document.getElementById("date-start").value = deadline;
-        }
-    });
-    $('#date-deadline').on('change', function () {
-        var start = document.getElementById('date-start').value;
-        var deadline = document.getElementById('date-deadline').value;
-        const date1 = new Date(start);
-        const date2 = new Date(deadline);
-        if(date2 < date1){
-            document.getElementById("date-deadline").value = start;
-        }
-    });
-
-   
-  </script>
 </html>
 @endsection

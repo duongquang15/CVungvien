@@ -9,7 +9,25 @@
    
 </head>
 <body>
+    <style>
+        .custom-file-upload{
+      background: #007bff; 
+      padding: 8px;
+      border: 1px solid #e3e3e3; 
+      border-radius: 5px; 
+      border: 1px solid #ccc; 
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    </style>
     <div class="content">
+        @if (session('status'))
+        <div class="alert alert-primary">
+            {{session('status')}}
+        </div>
+        @endif
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
@@ -18,7 +36,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <h1 style="color: blue">Edit Ticket</h1>
+                            <input type="reset" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px" value="Back" onclick="history.go(-1);">
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -54,9 +72,11 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="cv">Tải CV lên</label><br>
-                                        <input accept="image/*" type="file" id="imgInp" name="file" multiple />
-                                        <img id="blah" src="#" alt="your image" style="width: 150px; height: 100px;" />
+                                        <label for="choose-file" class="custom-file-upload" id="choose-file-label" >
+                                            UPLAOD CV
+                                         </label>
+                                         <input name="file" type="file" id="choose-file"   multiple required
+                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" />
                                         @error('file')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -127,7 +147,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="department">Phòng ban</label>
-                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department" >
+                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department" required>
                                             <option>Chọn phòng ban</option>
                                             @foreach($department as $department)
                                                 <option value="{{ $department->id }}" {{ in_array($department->id, $ticket->departments->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $department->name }}</option>
@@ -145,8 +165,7 @@
                             </div>
                         </div>
                         <div class="card-action" style="text-align: center">
-                            <input type="submit" class=" btn btn-success " style="width: 200px; height: 50px;font-size: 18px" value="Create">
-                            <input type="reset" class=" btn btn-danger " style="width: 200px; height: 50px;font-size: 18px" value="Reset">
+                            <input type="submit" class=" btn btn-success " style="width: 200px; height: 50px;font-size: 18px" value="UPDATE">
                         </div>
                     </form>
                     </div>
@@ -155,115 +174,15 @@
         </div>
     </div>
 </body>
-<script>
-    imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-  }
-}
+
+  <script>
+    $(document).ready(function () {
+	$('#choose-file').change(function () {
+		var i = $(this).prev('label').clone();
+		var file = $('#choose-file')[0].files[0].name;
+		$(this).prev('label').text(file);
+	}); 
+ });
 </script>
-<script>
-    $("#Status,#priority,#person-charge,#department").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true
-    });
-    $("#job").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
-
-        var element = $(this);
-        var new_job = $.trim(element.val());
-        if(new_job != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('jobs') }}",
-                type: 'get',
-                data:{ 'id':new_job},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        job_id = response.data.job_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+job_id+'">'+new_job+'</option>').val(job_id);
-                        }
-                        else {
-                                        
-                        }
-                    }
-                },
-            });
-        }
-    });
-   
-  </script>
-  <script>
-      $("#level").select2({
-        theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
-        allowClear: true,
-        tags:true,
-    }).on('select2:close',function(e){
-        e.preventDefault();
-
-        var element = $(this);
-        var new_level = $.trim(element.val());
-        if(new_level != '')
-        {
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-            });
-            $.ajax({
-                url: "{{ route('levels') }}",
-                type: 'get',
-                data:{ 'id':new_level},
-                dataType : 'json',
-                success:function(response){
-                    if (response.status == 200) {
-                        name = response.data.name;
-                        level_id = response.data.level_id;
-                        if (name == 'yes') {
-                            element.append('<option value = "'+level_id+'">'+new_level+'</option>').val(level_id);
-                        }
-                    }
-                },
-            });
-        }
-    });
-  </script>
-
-  <script>
-    $('#date-start').on('change', function () {
-        var start = document.getElementById('date-start').value;
-        var deadline = document.getElementById('date-deadline').value;
-        const date1 = new Date(start);
-        const date2 = new Date(deadline);
-        if(date1 > date2){
-            document.getElementById("date-start").value = deadline;
-        }
-    });
-    $('#date-deadline').on('change', function () {
-        var start = document.getElementById('date-start').value;
-        var deadline = document.getElementById('date-deadline').value;
-        const date1 = new Date(start);
-        const date2 = new Date(deadline);
-        if(date2 < date1){
-            document.getElementById("date-deadline").value = start;
-        }
-    });
-  </script>
 </html>
 @endsection

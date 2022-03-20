@@ -1,20 +1,33 @@
 
-imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-  }
-}
-
 //select2 job and level
-    $("#Status,#priority,#person-charge,#department").select2({
+    $("#Status,#priority,#department").select2({
         theme: 'bootstrap4',
         placeholder: "Chọn mục phù hợp",
         allowClear: true
     });
+    $("#person-charge").select2({
+        theme: 'bootstrap4',
+        placeholder: "người phụ trách",
+        allowClear: true
+    });
+    $("#department").select2({
+        theme: 'bootstrap4',
+        placeholder: "phòng ban",
+        allowClear: true
+    });
+    $("#priority").select2({
+        theme: 'bootstrap4',
+        placeholder: "độ ưu tiên",
+        allowClear: true
+    });
+    $("#Status").select2({
+        theme: 'bootstrap4',
+        placeholder: "status",
+        allowClear: true
+    });
     $("#job").select2({
         theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
+        placeholder: "job",
         allowClear: true,
         tags:true,
     }).on('select2:close',function(e){
@@ -49,7 +62,7 @@ imgInp.onchange = evt => {
   
       $("#level").select2({
         theme: 'bootstrap4',
-        placeholder: "Chọn mục phù hợp",
+        placeholder: "level",
         allowClear: true,
         tags:true,
     }).on('select2:close',function(e){
