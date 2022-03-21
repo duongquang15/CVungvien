@@ -7,27 +7,27 @@
     });
     $("#person-charge").select2({
         theme: 'bootstrap4',
-        placeholder: "người phụ trách",
+        placeholder: "Người phụ trách",
         allowClear: true
     });
     $("#department").select2({
         theme: 'bootstrap4',
-        placeholder: "phòng ban",
+        placeholder: "Phòng ban",
         allowClear: true
     });
     $("#priority").select2({
         theme: 'bootstrap4',
-        placeholder: "độ ưu tiên",
+        placeholder: "Độ ưu tiên",
         allowClear: true
     });
     $("#Status").select2({
         theme: 'bootstrap4',
-        placeholder: "status",
+        placeholder: "Status",
         allowClear: true
     });
     $("#job").select2({
         theme: 'bootstrap4',
-        placeholder: "job",
+        placeholder: "Job",
         allowClear: true,
         tags:true,
     }).on('select2:close',function(e){
@@ -62,7 +62,7 @@
   
       $("#level").select2({
         theme: 'bootstrap4',
-        placeholder: "level",
+        placeholder: "Level",
         allowClear: true,
         tags:true,
     }).on('select2:close',function(e){

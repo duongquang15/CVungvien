@@ -29,15 +29,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="name">Họ Tên</label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="họ tên" required>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên" >
                                         @error('name')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="job">job</label>
-                                        <select class="form-control form-control select2" name="job" id="job" required >
+                                        <select class="form-control form-control select2" name="job" id="job"  >
                                             <option value>job</option>
                                             @foreach ($job as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -49,8 +47,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="defaultSelect">level</label>
-                                        <select class="form-control form-control select2" name="level" id="level" required>
+                                        <select class="form-control form-control select2" name="level" id="level" >
                                             {{-- <option value="0">Chọn level</option> --}}
                                             {{-- @foreach ($level as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -61,11 +58,11 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="choose-file" class="custom-file-upload" id="choose-file-label" aria-required >
+                                        <label for="choose-file" class="custom-file-upload" id="choose-file-label"  >
                                             UPLAOD CV
                                          </label>
-                                         <input name="file" type="file" id="choose-file" multiple required
-                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" />
+                                         <input name="file" type="file" id="choose-file" multiple 
+                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none"/>
                                         {{-- <label for="img" class="btn btn-info">UPLOAD CV</label>
                                         <input type="file" id="img" name="file" multiple required> --}}
                                         @error('file')
@@ -75,7 +72,6 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">		
                                     <div class="form-group">
-                                        <label for="priority">Status</label>
                                         <select class="form-control form-control select2" name="status" id="Status" >
                                             <option value="0">Status</option>
                                             <option value="1">Request review</option>
@@ -95,9 +91,8 @@
                                         @enderror
                                     </div>		
                                     <div class="form-group">
-                                        <label for="priority">Độ ưu tiên</label>
                                         <select class="form-control form-control select2" name="priority" id="priority">
-                                            <option value="0">độ ưu tiên</option>
+                                            <option value="0">Độ ưu tiên</option>
                                             <option value="1">Low</option>
                                             <option value="2">Normal</option>
                                             <option value="3">Higt</option>
@@ -109,14 +104,12 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="date-start">start</label>
                                         <input type="date" class="form-control" name="date-start" id="date-start" value="<?php echo date("Y-m-d");?>" placeholder="start">
                                         @error('date-start')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="date-deadline">Deadline</label>
                                         <input type="date" class="form-control" name="date-deadline" id="date-deadline" value="<?php echo date("Y-m-d");?>" placeholder="deadline">
                                         @error('date-deadline')
                                         <small class="form-text text-danger">{{$message}}</small>
@@ -126,8 +119,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
-                                        <label for="person-charge">Người phụ trách</label>
-                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" required >
+                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge"  >
                                             <option>người phụ trách</option>
                                             @foreach ($user as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -135,8 +127,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="department">Phòng ban</label>
-                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department" required >
+                                        <select class="form-control select2" multiple="multiple" name="department[]" id="department"  >
                                             <option>phòng ban</option>
                                             @foreach ($department as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -147,8 +138,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="description">Mô tả</label><br>
-                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Nhập nội dung mô tả"></textarea>
+                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Mô tả"></textarea>
                                     </div>
                                 </div>
                             </div>

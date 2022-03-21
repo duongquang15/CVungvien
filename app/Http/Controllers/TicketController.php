@@ -30,7 +30,7 @@ class TicketController extends Controller
     }
     function stores(Request $request){
         $request->validate([
-            'name'=>'required|unique:tickets|min:5|max:255',
+            'name'=>'required|max:255',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             // 'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
@@ -41,11 +41,11 @@ class TicketController extends Controller
             'department'=>'required',
         ],
         [
-            'required'=>':attribute không được để trống',
+            'required'=>'Chưa nhập :attribute ',
             'min'=>':attribute độ dài phải trên 5 ký tự',
             'max'=>':attribute độ dài phải dưới 255 ký tự',
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
-            'not_in'=>':attribute Không được để trống',
+            'not_in'=>'Chưa nhập :attribute',
         ],
         [
             'name'=>'Họ Tên',
