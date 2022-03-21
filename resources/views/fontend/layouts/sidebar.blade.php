@@ -1,7 +1,7 @@
 <!-- Sidebar -->		
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
-            <div class="user">
+            {{-- <div class="user">
                 <div class="avatar-sm float-left mr-2">
                     <img src="{{asset('assets/img/profile.jpg')}}" alt="..." class="avatar-img rounded-circle">
                 </div>
@@ -35,7 +35,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <ul class="nav nav-primary">
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
@@ -60,16 +60,26 @@
                         </ul>
                     </div>
                 </li>
+
+                @if (Auth::user()->role->id == 3)
                 <li class="nav-item">
                     <a href="{{route('table_data_users')}}">
                         <i class="fas fa-users"></i>
-                        <p>QUẢN LÍ TÀI KHOẢN</p>
+                        <p>MANAGEMENT</p>
+                    </a>
+                </li>
+                @endif
+
+                <li class="nav-item">
+                    <a href="{{route('table_data_users')}}">
+                        <i class="fas fa-key" aria-hidden="true"></i>
+                        <p>CHANGE PASS</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="widgets.html">
                         <i class="fas fa-sign-out-alt"></i>
-                        <p>ĐĂNG XUẤT</p>
+                        <p>LOGOUT</p>
                     </a>
                 </li>
             </ul>

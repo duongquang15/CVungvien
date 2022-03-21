@@ -37,7 +37,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    function ticket(){
+    function tickets(){
         return $this->belongsToMany('App\Ticket','assigns');
+    }
+    public function role() {
+        return $this->belongsTo('App\Role');
+    }
+    public function department() {
+        return $this->belongsTo('App\Department');
     }
 }

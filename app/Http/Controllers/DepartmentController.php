@@ -58,9 +58,36 @@ class DepartmentController extends Controller
      */
     public function showTicketByDepartment($id)
     {
+        // check role
+        $user_id = Auth::user()->id;
+        $user_department_id = Auth::user()->department_id;
+        $role = User::find($user_id)->role;
+
         // show ticket theo phòng ban
         $department = Department::find($id);
-        $tickets = $department->tickets;
+
+        if ($role->id == 3) {
+            // role admin
+            $tickets = $department->tickets;
+        } else if ($role->id == 2) {
+            // role truong phong
+            if ($user_department_id == $id) {
+                $tickets = $department->tickets;
+            }
+            else {
+                $tickets = null;
+            }
+        } else {
+            // role user
+            $tickets = Ticket::with('users', 'departments')
+                                ->whereHas('users', function($query) use($user_id) {
+                                    $query->where('users.id', '=', $user_id); 
+                                 })
+                                ->whereHas('departments', function($query) use($id) {
+                                    $query->where('departments.id', '=', $id); 
+                                })
+                                ->get();
+        }
 
         $department_name = $department->name; 
         $stt = 1;  
@@ -69,8 +96,22 @@ class DepartmentController extends Controller
 
     public function showTicket()
     {
+        // check role
+        $user_id = Auth::user()->id;
+        $user_department_id = Auth::user()->department_id;
+        $role = User::find($user_id)->role;
+
         // show ticket tất cả phòng ban
-        $tickets = Ticket::all();
+        if ($role->id == 3) {
+            // role admin
+            $tickets = Ticket::all();
+        } else if ($role->id == 2) {
+            // role truong phong
+            $tickets = Department::find($user_department_id)->tickets;
+        } else {
+            // role user
+            $tickets = User::find($user_id)->tickets;
+        }
 
         $department_name = 'Tất cả phòng ban';
         $stt = 1;
@@ -79,7 +120,7 @@ class DepartmentController extends Controller
 
 
     /**
-     * Export Ticket theo phòng ban
+     * Export Ticket theo phòng ban Maatwebsite/excel
      */
     public function exportTickets()
     {
@@ -120,4 +161,6 @@ class DepartmentController extends Controller
     {
         //
     }
+
+    
 }

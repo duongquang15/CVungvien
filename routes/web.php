@@ -35,20 +35,11 @@ Route::get('show_levels','TicketController@show_levels')->name('show-levels');
 /**
  * Bắt đầu Route Thắng Em ghi
  */
-Route::get('/table-data-users', function () {
-    return view('fontend.users.table_data_users');
-})->name('table_data_users');
-Route::get('/edit-user', function () {
-    return view('fontend.users.edit_user');
-})->name('edit_user');
+Route::get('/table-data-users', 'UserController@show')->name('table_data_users');
+Route::get('/edit-user/{id}', 'UserController@editUser')->name('edit_user');
 Route::get('/top-page', 'DepartmentController@showTicket')->name('top_page');
 Route::get('/top-page/{id}', 'DepartmentController@showTicketByDepartment')->name('top_page_by_department');
 
-Route::post('/test1', 'DepartmentController@exportTickets')->name('export_tickets');
-
-Route::get('/test', function () {
-    return view('fontend.test_table2excel');
-});
 /**
  * Kết thúc Route Thắng Em ghi
  */

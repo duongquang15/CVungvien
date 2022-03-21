@@ -1,4 +1,5 @@
 @extends('fontend.layouts.master')
+@section('title', 'Danh sách tài khoản')
 
 @section('content')
 <div class="adminx-content">
@@ -21,9 +22,9 @@
           <div class="col">
             <div class="card mb-grid">
               <div class="table-responsive-md">
-                <table id="data_tables" class="table table-actions table-striped table-hover mb-0" data-table>
+                <table id="datatables_users" class="table table-actions table-striped table-hover mb-0" data-table>
                   <thead>
-                    <tr>
+                    <tr style="background-color: #a1e7ff;">
                       <th scope="col">UserID</th>
                       <th scope="col">Họ tên</th>
                       <th scope="col">Phòng ban</th>
@@ -34,126 +35,21 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($users as $user)
                       <tr>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
+                      <td>{{$user->email}}</td>
+                      <td>{{$user->name}}</td>
+                      <td>chưa cập nhật</td>
                       <td>
-                        <span class="badge badge-pill badge-primary">Admin</span>
+                        <span class="badge badge-pill badge-primary">chưa cập nhật</span>
                       </td>
-                      <td>23/01/2022</td>
-                      <td>Thắng Em pro</td>
+                      <td>{{$user->created_at}}</td>
+                      <td>chưa cập nhật</td>
                       <td>
-                        <a href="{{route('edit_user')}}" class="btn btn-sm btn-primary">Edit</a>
-
+                        <a href="{{route('edit_user', ['id' => $user->id])}}" class="btn btn-sm btn-primary">Edit</a>
                       </td>
                       </tr>
-                    <tr>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                      <td>
-                        <span class="badge badge-pill badge-primary">Author</span>
-                        <span class="badge badge-pill badge-primary">Developer</span>
-                      </td>
-                      <td>11/05/2019</td>
-                      <td>Huy the shy sa-đéc</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary" >Edit</button>
-                      </td>
-                    </tr>
-                    <tr>
-
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                      <td>
-                        <span class="badge badge-pill badge-danger">Inactive</span>
-                      </td>
-                      <td>11/11/1111</td>
-                      <td>Quang</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary">Edit</button>
-                      </td>
-                    </tr>
-                  
-
-                    <tr>
-
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                          <span class="badge badge-pill badge-danger">Inactive</span>
-                        </td>
-                        <td>11/11/1111</td>
-                        <td>Quang</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                          <span class="badge badge-pill badge-danger">Inactive</span>
-                        </td>
-                        <td>11/11/1111</td>
-                        <td>Quang</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                          <span class="badge badge-pill badge-danger">Inactive</span>
-                        </td>
-                        <td>11/11/1111</td>
-                        <td>Quang</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                          <span class="badge badge-pill badge-danger">Inactive</span>
-                        </td>
-                        <td>11/11/1111</td>
-                        <td>Quang</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                          <span class="badge badge-pill badge-danger">Inactive</span>
-                        </td>
-                        <td>11/11/1111</td>
-                        <td>Quang</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-
-                        </td>
-                      </tr>
-
-
+                    @endforeach
                   </tbody>
                 </table>
               </div>
