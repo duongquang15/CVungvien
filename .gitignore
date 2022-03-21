@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/assets/js/common-select2.js
 /storage/*.key
 /vendor
 .env
