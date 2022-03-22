@@ -75,7 +75,14 @@ class DepartmentController extends Controller
                 $tickets = $department->tickets;
             }
             else {
-                $tickets = null;
+                $tickets = Ticket::with('users', 'departments')
+                                ->whereHas('users', function($query) use($user_id) {
+                                    $query->where('users.id', '=', $user_id); 
+                                 })
+                                ->whereHas('departments', function($query) use($id) {
+                                    $query->where('departments.id', '=', $id); 
+                                })
+                                ->get();
             }
         } else {
             // role user
@@ -89,11 +96,15 @@ class DepartmentController extends Controller
                                 ->get();
         }
 
-        $department_name = $department->name; 
+        $department_name = $department->name;
+        $department_id = $department->id; 
         $stt = 1;  
-        return view('fontend.tickets.top_page', compact('tickets', 'stt', 'department_name'));
+        return view('fontend.tickets.top_page', compact('tickets', 'stt', 'department_name', 'department_id'));
     }
 
+    /**
+     * show ticket toàn bộ phòng ban
+     */
     public function showTicket()
     {
         // check role
@@ -108,23 +119,51 @@ class DepartmentController extends Controller
         } else if ($role->id == 2) {
             // role truong phong
             $tickets = Department::find($user_department_id)->tickets;
+            $tickets_anotherDPM = Ticket::with('users', 'departments')
+                ->whereHas('users', function($query) use($user_id) {
+                    $query->where('users.id', '=', $user_id); 
+                })
+                ->whereHas('departments', function($query) use($user_department_id) {
+                    $query->where('departments.id', '!=', $user_department_id); 
+                })
+                ->get();
+            $tickets = $tickets->merge($tickets_anotherDPM);
         } else {
             // role user
             $tickets = User::find($user_id)->tickets;
         }
 
-        $department_name = 'Tất cả phòng ban';
+        $department_name = 'Toàn công ty';
+        $department_id = 0;
         $stt = 1;
-        return view('fontend.tickets.top_page', compact('tickets', 'stt', 'department_name'));
+        return view('fontend.tickets.top_page', compact('tickets', 'stt', 'department_name', 'department_id'));
     }
 
 
     /**
-     * Export Ticket theo phòng ban Maatwebsite/excel
+     * Export Ticket theo Maatwebsite/excel
      */
-    public function exportTickets()
+    public function exportTickets($id)
     {
-        return Excel::download(new TicketsExport, 'tickets.xlsx');
+        // check role
+        $user_id = Auth::user()->id;
+        $role = User::find($user_id)->role;
+
+        if ($role->id == 3) {
+            // tất cả phòng ban thì sec mặc định id = 0
+            if ($id == 0){
+                $tickets = Ticket::all();
+            }
+            else {
+                $department = Department::find($id);
+                $tickets = $department->tickets;
+            } 
+        }
+        else {
+            $tickets = null;
+        }
+        $stt = 1;
+        return Excel::download(new TicketsExport($tickets, $stt), 'tickets.xlsx');
     }
 
 

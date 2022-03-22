@@ -1,10 +1,10 @@
 
 $(document).ready(function() {
     $('#datatables_tickets').DataTable({
-        dom: 'lBfrtip',
-        buttons: [
-            { extend: 'excel', className: 'btn btn-success', text: 'EXPORT CSV/EXCEL' },
-        ],
+        // dom: 'lBfrtip',
+        // buttons: [
+        //     { extend: 'excel', className: 'btn btn-success', text: 'EXPORT CSV/EXCEL' },
+        // ],
         "paging": false,
         "bInfo": false,
         "bFilter": false,

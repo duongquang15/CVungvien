@@ -6,6 +6,7 @@ use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,7 +73,8 @@ class UserController extends Controller
         //edit user bởi Thắng Em
         $user = User::find($id);
         $departments = Department::all();
-        return view('fontend.users.edit_user', compact('user', 'departments'));
+        $roles = Role::all();
+        return view('fontend.users.edit_user', compact('user', 'departments', 'roles'));
     }
 
     /**
@@ -98,13 +100,5 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * get role user
-     */
-    public function getRole()
-    {
-        $user_id = Auth::user()->id;
-        $role = User::find($user_id)->role;
-        return $role->id;
-    }
+
 }

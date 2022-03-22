@@ -1,7 +1,7 @@
 .box-export-excel {
     margin-bottom: 25px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 #datatables_users {
@@ -47,4 +47,9 @@ div.dt-buttons {
 button.dt-button {
     margin-right: 0 !important;
     border-radius: 4px !important;
+}
+.box-back-sort {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
 }

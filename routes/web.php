@@ -37,8 +37,10 @@ Route::get('show_levels','TicketController@show_levels')->name('show-levels');
  */
 Route::get('/table-data-users', 'UserController@show')->name('table_data_users');
 Route::get('/edit-user/{id}', 'UserController@editUser')->name('edit_user');
-Route::get('/top-page', 'DepartmentController@showTicket')->name('top_page');
+Route::get('/top-page/0', 'DepartmentController@showTicket')->name('top_page');
 Route::get('/top-page/{id}', 'DepartmentController@showTicketByDepartment')->name('top_page_by_department');
+
+Route::get('/export-excel/{id}', 'DepartmentController@exportTickets')->name('export_excel');
 
 /**
  * Kết thúc Route Thắng Em ghi

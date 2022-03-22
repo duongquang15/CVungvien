@@ -6,16 +6,7 @@
     <div class="adminx-main-content">
       <div class="container-fluid">
         <!-- BreadCrumb -->
-        <nav aria-label="breadcrumb" role="navigation">
-          <ol class="breadcrumb adminx-page-breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="#">Quản lí tài khoản</a></li>
-            <li class="breadcrumb-item"><a href="#">Danh sách</a></li>
-            <li class="breadcrumb-item active"  aria-current="page">Edit tài khoản</li>
-          </ol>
-        </nav>
-  
-        <div class="pb-3">
+        <div class="pb-3" style="margin-top: 16px;">
           <h2>Edit Tài khoản</h2>
         </div>
   
@@ -51,7 +42,7 @@
                             <div class="form-group">
                                 <label class="form-label">Phòng ban</label>
                                 <select class="custom-select">
-                                    <option selected>Phòng ban selected</option>
+                                    <option selected>{{$user->department->name}}</option>
 
                                     @foreach ($departments as $department)
                                     <option value="{{$department->id}}">{{$department->name}}</option> 
@@ -62,10 +53,12 @@
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword1">Phân quyền</label>
                                 <select class="custom-select">
-                                    <option selected>Phân quyền selected</option>
-                                    <option value="1">Phân quyền 1</option>
-                                    <option value="2">Phân quyền 2</option>
-                                    <option value="3">Phân quyền 3</option>
+                                    <option selected>{{$user->role->name}}</option>
+
+                                    @foreach ($roles as $role)
+                                    <option value="1">{{$role->name}}</option>
+                                    @endforeach
+                                    
                                 </select>
                             </div>
                         </div>

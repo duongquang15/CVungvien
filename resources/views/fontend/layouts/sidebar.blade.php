@@ -71,16 +71,19 @@
                 @endif
 
                 <li class="nav-item">
-                    <a href="{{route('table_data_users')}}">
+                    <a href="{{route('changepass')}}">
                         <i class="fas fa-key" aria-hidden="true"></i>
                         <p>CHANGE PASS</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="widgets.html">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form1').submit();">
                         <i class="fas fa-sign-out-alt"></i>
-                        <p>LOGOUT</p>
+                        <p>LOGOUT</p> 
                     </a>
+					<form id="logout-form1" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </div>
