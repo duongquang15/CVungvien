@@ -1,4 +1,4 @@
-@extends('fontend.layouts.master')
+@extends('fontend.layouts.ticket')
 
 @section('content')
 <style>
@@ -146,12 +146,14 @@
                         <div class="card-action" style="text-align: center">
                             <input type="submit" class=" btn btn-success " style="width: 200px; height: 50px;font-size: 18px" value="Create">
                         </div>
+            
                     </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 <script>
     $(document).ready(function () {
 	$('#choose-file').change(function () {
@@ -161,4 +163,5 @@
 	}); 
  });
 </script>
+
 @endsection

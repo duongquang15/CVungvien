@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -29,8 +30,11 @@ class TicketController extends Controller
         return view('fontend.tickets.create-ticket',compact('name','job','level','user','department'));
     }
     function stores(Request $request){
+        Validator::extend('without_spaces', function($attr, $value){
+            return preg_match('/^\S*$/u', $value);
+        });
         $request->validate([
-            'name'=>'required|max:255',
+            'name'=>'required|max:255|without_spaces',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             // 'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
@@ -46,6 +50,7 @@ class TicketController extends Controller
             'max'=>':attribute độ dài phải dưới 255 ký tự',
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
             'not_in'=>'Chưa nhập :attribute',
+            'name.without_spaces'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
@@ -244,12 +249,12 @@ class TicketController extends Controller
             'department'=>'required',
         ],
         [
-            'required'=>':attribute không được để trống',
+            'required'=>'Chưa nhập :attribute ',
             'min'=>':attribute độ dài phải trên 5 ký tự',
             'max'=>':attribute độ dài phải dưới 255 ký tự',
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
-            'not_in'=>':attribute Không được để trống',
-            'mimes'=>':attribute phải có định dạng đuôi jpg,bmp,png,pdf,docx,doc '
+            'not_in'=>'Chưa nhập :attribute',
+            'name.without_spaces'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
