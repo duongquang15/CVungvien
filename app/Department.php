@@ -12,4 +12,7 @@ class Department extends Model
     function tickets(){
         return $this->belongsToMany('App\Ticket');
     }
+    public function users() {
+        return $this->hasMany('App\User');
+    }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Atlantis Lite - Bootstrap 4 Admin Dashboard</title>
+	<title>@yield('title')</title>
 	<link rel="icon" href="{{ asset('assets/img/icon.ico')}}" type="image/x-icon"/>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Fonts and icons -->
@@ -27,7 +27,7 @@
 
 
 	{{-- css button datatables --}}
-	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"> --}}
+	<link rel="stylesheet" href="{{ asset('css/dataTables.min.css')}}">
 
 	{{-- css select2 --}}
 	<link rel="stylesheet" href="{{ asset('assets/select2/select2-bootstrap4.min.css')}}">
@@ -127,13 +127,18 @@
 	<!-- Datatables -->
 	<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js')}}"></script>
 	<script src="{{ asset('js/datatables.js')}}"></script>
-
-	{{-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script> --}}
+	{{-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script> --}}
+	<script src="{{ asset('js/dataTables.button.min.js')}}"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> --}}
+	<script src="{{ asset('js/jszip.min.js')}}"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> --}}
+	<script src="{{ asset('js/pdfmake.min.js')}}"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> --}}
+	<script src="{{ asset('js/vfs_fonts.js')}}"></script>
+	{{-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script> --}}
+	<script src="{{ asset('js/buttons.html5.min.js')}}"></script>
+	{{-- <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script> --}}
+	<script src="{{ asset('js/buttons.print.min.js')}}"></script>
 
 	<!-- Bootstrap Notify -->
 	<script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
