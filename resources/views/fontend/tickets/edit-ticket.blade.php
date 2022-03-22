@@ -1,4 +1,4 @@
-@extends('fontend.layouts.master')
+@extends('fontend.layouts.ticket')
 
 @section('content')
 <!DOCTYPE html>
@@ -42,14 +42,12 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="name">Họ Tên</label>
-                                        <input type="text" class="form-control" name="name" id="name" value="{{$ticket->name}}" placeholder="Nhập họ tên">
+                                        <input type="text" class="form-control" name="name" id="name" value="{{$ticket->name}}" placeholder="Họ tên">
                                         @error('name')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="job">job</label>
                                         <select class="form-control select2" name="job" id="job" >
                                             @foreach ($job as $key => $item)
                                                 <option <?php if($ticket_job->name == $item['name']) echo "selected" ?> value="{{ $item['id']}}">{{ $item['name'] }}</option>
@@ -62,7 +60,6 @@
                                     <div class="form-group">
                                         <label for="defaultSelect">level</label>
                                         <select class="form-control form-control select2" name="level" id="level">
-                                            <option value="0">Chọn level</option>
                                             @foreach ($level as $key => $item)
                                                 <option  <?php if($ticket_level->name == $item['name']) echo "selected" ?> value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach
@@ -76,7 +73,7 @@
                                             UPLAOD CV
                                          </label>
                                          <input name="file" type="file" id="choose-file"   multiple required
-                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" />
+                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none"/>
                                         @error('file')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -84,9 +81,8 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">		
                                     <div class="form-group">
-                                        <label for="priority">Status</label>
                                         <select class="form-control form-control select2" name="status" id="Status" >
-                                            <option value="0">Chọn Status</option>
+                                            <option value="0">Status</option>
                                             <option <?php if($ticket->status == 1)echo"selected"; ?> value="1">Request review</option>
                                             <option <?php if($ticket->status == 2)echo"selected"; ?> value="2">Đồng ý phỏng vấn</option>
                                             <option <?php if($ticket->status == 3)echo"selected"; ?> value="3">Loại</option>
@@ -104,9 +100,8 @@
                                         @enderror
                                     </div>		
                                     <div class="form-group">
-                                        <label for="priority">Độ ưu tiên</label>
                                         <select class="form-control form-control select2" name="priority" id="priority">
-                                            <option value="0">Chọn độ ưu tiên</option>
+                                            <option value="0">Độ ưu tiên</option>
                                             <option <?php if($ticket->priority == 1)echo"selected"; ?> value="1">Low</option>
                                             <option <?php if($ticket->priority == 2)echo"selected"; ?> value="2">Normal</option>
                                             <option <?php if($ticket->priority == 3)echo"selected"; ?> value="3">Higt</option>
@@ -118,15 +113,13 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="date-start">Start</label>
-                                        <input type="date" class="form-control" name="date-start" id="date-start" value="{{old('date-start',$ticket->start)}}" placeholder="Nhập ngày start">
+                                        <input type="date" class="form-control" name="date-start" id="date-start" value="{{old('date-start',$ticket->start)}}" placeholder="Start">
                                         @error('date-start')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="date-deadline">Deadline</label>
-                                        <input type="date" class="form-control" name="date-deadline" id="date-deadline" value="{{old('date-deadline',$ticket->deadline)}}" placeholder="Nhập ngày deadline">
+                                        <input type="date" class="form-control" name="date-deadline" id="date-deadline" value="{{old('date-deadline',$ticket->deadline)}}" placeholder="Deadline">
                                         @error('date-deadline')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -135,9 +128,8 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
-                                        <label for="person-charge">Người phụ trách</label>
                                         <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" >
-                                            <option>Chọn người phụ trách</option>
+                                            <option>Người phụ trách</option>
                                             @if(isset($user_assigns))
                                             @foreach($user_assigns as $user_assign)
                                                 <option value="{{ $user_assign->id }}" {{ in_array($user_assign->id, $ticket->users->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $user_assign->name }}</option>
@@ -146,9 +138,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="department">Phòng ban</label>
                                         <select class="form-control select2" multiple="multiple" name="department[]" id="department" required>
-                                            <option>Chọn phòng ban</option>
+                                            <option>Phòng ban</option>
                                             @foreach($department as $department)
                                                 <option value="{{ $department->id }}" {{ in_array($department->id, $ticket->departments->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $department->name }}</option>
                                             @endforeach
@@ -158,8 +149,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="description">Mô tả</label><br>
-                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Nhập nội dung mô tả">{{$ticket->description}}</textarea>
+                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Mô tả">{{$ticket->description}}</textarea>
                                     </div>
                                 </div>
                             </div>
