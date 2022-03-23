@@ -2136,15 +2136,17 @@ textarea.form-control {
 .forgot input{
     width: 300px;
     margin-left: 50px;
+    margin-top: -30px;
 }
 .forgot i{
     margin-top: 12px;
     margin-left: -20px;
 }
 .forgotpass1 .btn-primary{
-    margin: 5px 20px 5px 61px;
-    width: 100px;
-   
+    /* margin: 5px 20px 5px 61px; */
+    width: 424px;
+   margin-left: -5px;
+   margin-top: 20px;
     
 }
 .forgotpass1 .btn-primary:hover{
