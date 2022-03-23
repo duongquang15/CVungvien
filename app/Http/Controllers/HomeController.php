@@ -37,15 +37,15 @@ class HomeController extends Controller
     }
     function resetpass(Request $request)
     {
-        $request->validate([
+    //     $request->validate([
         
-         'password' => 'required|string|min:8|same:confirm_password',
-         'confirm_password' => 'required|string|min:8|same:confirm_passwords',
-       ],[
-        'required'=>':attribute không được để trống',
-        'min'=>':attribute độ dài phải trên 8 ký tự',
-        'same'=>':attribute không khớp,vui lòng nhập lại',
-       ]);
+    //      'password' => 'required|string|min:8|same:confirm_password',
+    //      'confirm_password' => 'required|string|min:8|same:confirm_passwords',
+    //    ],[
+    //     'required'=>':attribute không được để trống',
+    //     'min'=>':attribute độ dài phải trên 8 ký tự',
+    //     'same'=>':attribute không khớp,vui lòng nhập lại',
+    //    ]);
 
     
    }
