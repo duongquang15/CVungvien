@@ -8,7 +8,7 @@
     $("#person-charge").select2({
         theme: 'bootstrap4',
         placeholder: "Người phụ trách",
-        allowClear: true
+        allowClear: true,
     });
     $("#department").select2({
         theme: 'bootstrap4',
