@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
-                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" >
+                                        <select class="form-control select2"  name="person_charge" id="person-charge" >
                                             <option>Người phụ trách</option>
                                             @if(isset($user_assigns))
                                             @foreach($user_assigns as $user_assign)

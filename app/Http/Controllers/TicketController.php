@@ -30,11 +30,8 @@ class TicketController extends Controller
         return view('fontend.tickets.create-ticket',compact('name','job','level','user','department'));
     }
     function stores(Request $request){
-        Validator::extend('without_spaces', function($attr, $value){
-            return preg_match('/^\S*$/u', $value);
-        });
         $request->validate([
-            'name'=>'required|max:255|without_spaces',
+            'name'=>'required|max:255',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             // 'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
@@ -50,7 +47,6 @@ class TicketController extends Controller
             'max'=>':attribute độ dài phải dưới 255 ký tự',
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
             'not_in'=>'Chưa nhập :attribute',
-            'name.without_spaces'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
@@ -69,6 +65,9 @@ class TicketController extends Controller
             $thumbnail = "uploads/".$filename;
             $file->move('public/uploads/', $file->getClientOriginalName());
 
+        }
+        else{
+            $thumbnail = '';
         }
         $TicketCreate = Ticket::create([
             'name' => $request->input('name'), 
@@ -90,18 +89,19 @@ class TicketController extends Controller
                 ]);
             }   
 
-        $person_charges = $request->person_charge;
-            foreach ($person_charges as $person_chargeID) {
+        $person_charges = $request->input('person_charge');
+            
                 DB::table('assigns')->insert([
                     'ticket_id'=>$TicketCreate->id,
-                    'user_id'=>$person_chargeID,
+                    'user_id'=>$request->input('person_charge'),
                 ]);
-            }
         $id = auth()->user()->id;
+        if($id != $person_charges){
             DB::table('assigns')->insert([
                 'ticket_id'=>$TicketCreate->id,
                 'user_id'=>$id,
             ]);
+        }    
         return redirect('top-page')->with('status','thêm bài viết thành công');
     }
 
@@ -273,6 +273,8 @@ class TicketController extends Controller
             $thumbnail = "uploads/".$filename;
             $file->move('public/uploads/', $file->getClientOriginalName());
 
+        }else{
+            $thumbnail ='';
         }
        
         $ticket1 = DB::table('tickets')->where('id', '=', $id)->get();
@@ -347,13 +349,11 @@ class TicketController extends Controller
                 ]);
             }   
 
-        $person_charges = $request->person_charge;
-            foreach ($person_charges as $person_chargeID) {
+        $person_charges = $request->input('person_charge');
                 DB::table('assigns')->where('id',$id)->update([
                     'ticket_id'=>$id,
-                    'user_id'=>$person_chargeID,
+                    'user_id'=>$person_charges,
                 ]);
-            }
         return redirect(route('detail-ticket',$id))->with('status','update thành công');
     }
 

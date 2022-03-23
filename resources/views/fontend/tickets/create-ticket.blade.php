@@ -35,12 +35,11 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control form-control select2" name="job" id="job"  >
+                                        <select class="form-control form-control select2"  name="job" id="job"  >
                                             <option value>job</option>
                                             @foreach ($job as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach
-                                            <option value="1">khác</option>
                                         </select>
                                         @error('job')
                                         <small class="form-text text-danger">{{$message}}</small>
@@ -62,7 +61,7 @@
                                             UPLAOD CV
                                          </label>
                                          <input name="file" type="file" id="choose-file" multiple 
-                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none"/>
+                                            accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none" />
                                         {{-- <label for="img" class="btn btn-info">UPLOAD CV</label>
                                         <input type="file" id="img" name="file" multiple required> --}}
                                         @error('file')
@@ -119,7 +118,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
-                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge"  >
+                                        <select class="form-control select2"  name="person_charge" id="person-charge"  >
                                             <option>người phụ trách</option>
                                             @foreach ($user as $key => $item)
                                                 <option value="{{ $item['id']}}">{{ $item['name'] }}</option>
