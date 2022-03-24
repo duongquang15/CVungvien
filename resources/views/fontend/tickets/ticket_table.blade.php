@@ -13,8 +13,8 @@
     </thead>
     <tbody>
       
-      @if (isset($tickets))
-      @foreach ($tickets as $ticket)
+      @if (!$tickets->isEmpty())
+      @foreach ($tickets as $ticket )
       <tr onclick="window.location='{{route('detail-ticket', ['id' => $ticket->id])}}';">
         <td>{{$stt++}}</td>
         <td>{{$ticket->name}}</td>
@@ -45,6 +45,15 @@
         </td>
       </tr>
       @endforeach
+      @else
+        <tr><td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Không có dữ liệu</td>
+        <td></td>
+        <td></td>
+        <td></td> </tr>    
       @endif
 
     </tbody>

@@ -22,11 +22,6 @@
               @if (Auth::user()->role->id == 3)
               <a href="{{route('create')}}" class="btn btn-success">CREATE TICKET</a>
 
-              {{-- <form action="{{route('export_excel')}}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success">EXPORT CSV/EXCEL</a>
-              </form> --}}
-
               @endif
 
             </div>
