@@ -17,7 +17,8 @@
 
                         <!-- <div class="form-group row">
                             <div class="col-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus style="display: none">
+
 
                                 
                             </div>

@@ -72,7 +72,7 @@
                                         <label for="choose-file" class="custom-file-upload" id="choose-file-label" >
                                             UPLAOD CV
                                          </label>
-                                         <input name="file" type="file" id="choose-file"   multiple required
+                                         <input name="file" type="file" id="choose-file"  
                                             accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none"/>
                                         @error('file')
                                         <small class="form-text text-danger">{{$message}}</small>
@@ -128,10 +128,10 @@
                                 </div>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group" >
-                                        <select class="form-control select2"  name="person_charge" id="person-charge" >
+                                        <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" >
                                             <option>Người phụ trách</option>
                                             @if(isset($user_assigns))
-                                            @foreach($user_assigns as $user_assign)
+                                            @foreach($user as $user_assign)
                                                 <option value="{{ $user_assign->id }}" {{ in_array($user_assign->id, $ticket->users->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $user_assign->name }}</option>
                                             @endforeach
                                             @endif

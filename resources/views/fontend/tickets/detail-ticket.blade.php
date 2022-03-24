@@ -30,7 +30,9 @@
                     <div class="card">
                         <div class="card-header">
                             <input type="" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px" value="Back" onclick="history.go(-1);">
+                            @if (Auth::user()->role->id == 3)
                             <a href="{{route('edit-ticket',$ticket->id)}}" class=" btn btn-primary float-right text-center " style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">EDIT/UPDATE</a>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -119,7 +121,7 @@
                                         <select class="form-control select2" multiple="multiple" name="person_charge[]" id="person-charge" disabled >
                                             <option>Người phụ trách</option>
                                             @if(isset($user_assigns))
-                                            @foreach($user_assigns as $user_assign)
+                                            @foreach($user as $user_assign)
                                                 <option value="{{ $user_assign->id }}" {{ in_array($user_assign->id, $ticket->users->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $user_assign->name }}</option>
                                             @endforeach
                                             @endif

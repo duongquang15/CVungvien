@@ -5,6 +5,11 @@
 
 @section('content')
 <div class="adminx-content">
+  @if (session('status'))
+        <div class="alert alert-primary">
+            {{session('status')}}
+        </div>
+        @endif
     <div class="adminx-main-content">
       <div class="container-fluid">
         <div class="pb-3" style="margin-top: 16px;">
