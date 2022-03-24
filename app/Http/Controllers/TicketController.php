@@ -34,7 +34,6 @@ class TicketController extends Controller
             'name'=>'required|max:255',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
-            // 'file'=>'required|image|mimetypes:image/jpeg,image/png|max:5000',
             'status'=>'required|not_in:0',
             'priority'=>'required|not_in:0',
             'date-start'=>'required',
@@ -47,6 +46,7 @@ class TicketController extends Controller
             'max'=>':attribute độ dài phải dưới 255 ký tự',
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
             'not_in'=>'Chưa nhập :attribute',
+            'name.without_spaces'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
@@ -65,8 +65,7 @@ class TicketController extends Controller
             $thumbnail = "uploads/".$filename;
             $file->move('public/uploads/', $file->getClientOriginalName());
 
-        }
-        else{
+        }else{
             $thumbnail = '';
         }
         $TicketCreate = Ticket::create([
@@ -82,27 +81,30 @@ class TicketController extends Controller
             'description'=>$request->input('description'),
         ]);
         $departments = $request->department;
+        if (isset($departments)) {
             foreach ($departments as $departmentID) {
                 DB::table('department_ticket')->insert([
-                    'department_id'=>$TicketCreate->id,
-                    'ticket_id'=>$departmentID,
-                ]);
-            }   
-
-        $person_charges = $request->input('person_charge');
-            
-                DB::table('assigns')->insert([
                     'ticket_id'=>$TicketCreate->id,
-                    'user_id'=>$request->input('person_charge'),
+                    'department_id'=>$departmentID,
                 ]);
+            }
+        }  
+
+            $person_charges = $request->person_charge;
+            if (isset($person_charges)) {
+                foreach($person_charges as $person_charge){
+                    DB::table('assigns')->insert([
+                        'user_id'=>$person_charge,
+                        'ticket_id'=>$TicketCreate->id,
+                    ]);
+                }
+            }
         $id = auth()->user()->id;
-        if($id != $person_charges){
             DB::table('assigns')->insert([
                 'ticket_id'=>$TicketCreate->id,
                 'user_id'=>$id,
             ]);
-        }    
-        return redirect('top-page')->with('status','thêm bài viết thành công');
+        return redirect('top-page/0')->with('status','thêm bài viết thành công');
     }
 
     function add_jobs(Request $request){
@@ -238,10 +240,9 @@ class TicketController extends Controller
 
     function update(Request $request, $id){
         $request->validate([
-            'name'=>'required|min:5|max:255',
+            'name'=>'required|max:255',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
-            'file'=>'required|mimes:jpg,bmp,png,pdf,docx,doc|max:5000',
             'status'=>'required|not_in:0',
             'priority'=>'required|not_in:0',
             'date-start'=>'required',
@@ -274,9 +275,9 @@ class TicketController extends Controller
             $file->move('public/uploads/', $file->getClientOriginalName());
 
         }else{
-            $thumbnail ='';
+            $thumbnail='';
         }
-       
+        
         $ticket1 = DB::table('tickets')->where('id', '=', $id)->get();
         $ticket_request = $request->all();
         $change = [];
@@ -327,8 +328,9 @@ class TicketController extends Controller
             }else{
                 $change['description']='';
             }
+            
         }
-            Ticket::where('id',$id)->update([
+            $Ticket_update = Ticket::where('id',$id)->update([
             'name' => $request->input('name'), 
             'job_id' => $request->input('job'),
             'cv' => $thumbnail ,
@@ -342,18 +344,26 @@ class TicketController extends Controller
             'change'=>auth()->user()->name,
         ]);
         $departments = $request->department;
+        if (isset($departments)) {
+            DB::table('department_ticket')->where('ticket_id',$id)->delete();
             foreach ($departments as $departmentID) {
-                DB::table('department_ticket')->where('id',$id)->update([
+                DB::table('department_ticket')->insert([
                     'ticket_id'=>$id,
                     'department_id'=>$departmentID,
                 ]);
-            }   
+            }
+        }
 
-        $person_charges = $request->input('person_charge');
-                DB::table('assigns')->where('id',$id)->update([
+        $person_charges = $request->person_charge;
+        if (isset($person_charges)) {
+            DB::table('assigns')->where('ticket_id',$id)->delete();
+            foreach($person_charges as $person_charge){
+                DB::table('assigns')->insert([
+                    'user_id'=>$person_charge,
                     'ticket_id'=>$id,
-                    'user_id'=>$person_charges,
                 ]);
+            }
+        }
         return redirect(route('detail-ticket',$id))->with('status','update thành công');
     }
 
