@@ -1,8 +1,8 @@
-@extends('fontend.layouts.master')
-@section('title', 'Sửa tài khoản')
+@extends('fontend.layouts.ticket')
+
 
 @section('content')
-<div class="adminx-content">
+<div class="adminx-content" style="width: 80%; margin-left: 10%;">
     <div class="adminx-main-content">
       <div class="container-fluid">
         <!-- BreadCrumb -->
@@ -22,41 +22,49 @@
   
               </div>
               <div class="card-body collapse show" id="card1">
-                <form autocomplete="off">
+                <form autocomplete="off" method="GET" enctype="multipart/form-data" action="{{route('update_user', [$user->id])}}">
+                  @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-label">Email đăng nhập</label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp" value="{{$user->email}}">
+                                <label class="form-label">UserID</label>
+                                <input type="email" name="email_user" class="form-control" aria-describedby="emailHelp" value="{{$user->email}}">
+                                @error('email_user')
+                                <small class="form-text text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="form-label" >Mật khẩu</label>
-                                <input type="text" class="form-control" value="{{$user->password}}">
+                                <input type="password" name="password_user" class="form-control" value="password">
+                                @error('password')
+                                <small class="form-text text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Họ tên hiển thị</label>
-                                <input class="form-control mb-2" type="text" value="{{$user->name}}">
+                                <input class="form-control mb-2" name="name_user" type="text" value="{{$user->name}}">
+                                @error('name_user')
+                                <small class="form-text text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="form-label">Phòng ban</label>
-                                <select class="custom-select">
-                                    <option selected>{{$user->department->name}}</option>
+                                <select name="department_user" class="custom-select">
 
                                     @foreach ($departments as $department)
-                                    <option value="{{$department->id}}">{{$department->name}}</option> 
+                                    <option value="{{$department->id}}" <?php if ($user->department->id == $department->id) echo 'selected'; ?> >{{$department->name}}</option> 
                                     @endforeach
 
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword1">Phân quyền</label>
-                                <select class="custom-select">
-                                    <option selected>{{$user->role->name}}</option>
+                                <select name="role_user" class="custom-select">
 
                                     @foreach ($roles as $role)
-                                    <option value="1">{{$role->name}}</option>
+                                    <option value="{{$role->id}}" <?php if ($user->role->id == $role->id) echo 'selected'; ?> >{{$role->name}}</option>
                                     @endforeach
                                     
                                 </select>
@@ -64,8 +72,8 @@
                         </div>
                     </div>
                     <div class="footer-edit-form" style="display: flex; justify-content: space-between;">
-                        <a class="btn btn-primary" href="#">Submit</a>
-                        <a class="btn btn-danger" href="#">Delete</a>
+                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                        <a class="btn btn-danger" href="{{route('delete_user', [$user->id])}}">DELETE</a>
                     </div>
                 </form>
               </div>

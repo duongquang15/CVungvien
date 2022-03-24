@@ -47,7 +47,7 @@
 		<script src="{{ asset('assets/select2/select2.min.js')}}"></script>
 
         
-			<div class="content">
+			<div class="content" >
 				@yield('content')
 			</div>
 		

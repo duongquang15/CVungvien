@@ -33,7 +33,7 @@
 								<input type="text" placeholder="Search ..." class="form-control">
 							</div>
 						</form>
-					</div>	 --}}
+					</div>	 
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 						<li class="nav-item toggle-nav-search hidden-caret">
 							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
@@ -63,7 +63,7 @@
 								</div>
 							</a>
 						</li>
-					</ul>
+					</ul> --}}
 				</div>
 			</nav>
 			<!-- End Navbar -->

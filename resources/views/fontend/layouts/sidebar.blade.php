@@ -43,13 +43,13 @@
                         <p>PHÒNG BAN</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="base">
+                    <div class="collapse show" id="base">
                         <ul class="nav nav-collapse">
-                            <li>
+                            {{-- <li>
                                 <a href="{{route('top_page')}}">
                                     <span class="sub-item">Tất cả phòng ban</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             @foreach ($departments as $department)                                  
                             <li>
                                 <a href="{{route('top_page_by_department', ['id' => $department->id])}}">

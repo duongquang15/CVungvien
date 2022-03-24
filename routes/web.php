@@ -35,12 +35,16 @@ Route::get('show_levels','TicketController@show_levels')->name('show-levels');
 /**
  * Bắt đầu Route Thắng Em ghi
  */
-Route::get('/table-data-users', 'UserController@show')->name('table_data_users');
-Route::get('/edit-user/{id}', 'UserController@editUser')->name('edit_user');
+Route::get('/table-data-users', 'UserController@show')->name('table_data_users')->middleware('checkIsAdmin');
+Route::post('/table-data-users/sort-users', 'UserController@sortUser')->name('sort_users')->middleware('checkIsAdmin');
+Route::get('/edit-user/{id}', 'UserController@editUser')->name('edit_user')->middleware('checkIsAdmin');
+Route::get('/update-user/{id}', 'UserController@updateUser')->name('update_user')->middleware('checkIsAdmin');
+Route::get('/delete-user/{id}', 'UserController@deleteUser')->name('delete_user')->middleware('checkIsAdmin');
+
 Route::get('/top-page/0', 'DepartmentController@showTicket')->name('top_page');
 Route::get('/top-page/{id}', 'DepartmentController@showTicketByDepartment')->name('top_page_by_department');
 
-Route::get('/export-excel/{id}', 'DepartmentController@exportTickets')->name('export_excel');
+Route::get('/export-excel/{id}', 'DepartmentController@exportTickets')->name('export_excel')->middleware('checkIsAdmin');
 
 /**
  * Kết thúc Route Thắng Em ghi
