@@ -31,7 +31,7 @@ class TicketController extends Controller
     }
     function stores(Request $request){
         $request->validate([
-            'name'=>'required|max:255',
+            'name'=>'required|regex:/^[a-zA-ZÑñ\s]+$/',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             'status'=>'required|not_in:0',
@@ -47,6 +47,7 @@ class TicketController extends Controller
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
             'not_in'=>'Chưa nhập :attribute',
             'name.without_spaces'=>'Nhập sai name',
+            'regex'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
@@ -104,7 +105,7 @@ class TicketController extends Controller
                 'ticket_id'=>$TicketCreate->id,
                 'user_id'=>$id,
             ]);
-        return redirect('top-page/0')->with('status','thêm bài viết thành công');
+        return redirect('create-ticket')->with('status','thêm bài viết thành công');
     }
 
     function add_jobs(Request $request){
@@ -240,7 +241,7 @@ class TicketController extends Controller
 
     function update(Request $request, $id){
         $request->validate([
-            'name'=>'required|max:255',
+            'name'=>'required|regex:/^[a-zA-ZÑñ\s]+$/',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             'status'=>'required|not_in:0',
@@ -256,6 +257,7 @@ class TicketController extends Controller
             'mimetypes:image/jpg,image/png'=>':attribute có dạng đuôi phải là jpg hoặc png',
             'not_in'=>'Chưa nhập :attribute',
             'name.without_spaces'=>'Nhập sai name',
+            'regex'=>'Nhập sai name',
         ],
         [
             'name'=>'Họ Tên',
@@ -364,7 +366,7 @@ class TicketController extends Controller
                 ]);
             }
         }
-        return redirect(route('detail-ticket',$id))->with('status','update thành công');
+        return redirect(route('edit-ticket',$id))->with('status','update thành công');
     }
 
     
