@@ -14,10 +14,10 @@
           <div class="col-lg-12">
             <div class="card mb-grid">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <div class="card-header-title" style="font-size: 20px;">Thông tin Tài khoản</div>
+
   
                 <nav class="card-header-actions">
-                    <button onclick="history.back()" class="btn btn-info">Back</button>
+                    <a href="{{url('/table-data-users')}}" class="btn btn-info">Back</a>
                 </nav>
   
               </div>
@@ -27,22 +27,22 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-label">UserID</label>
-                                <input type="email" name="email_user" class="form-control" aria-describedby="emailHelp" value="{{$user->email}}">
+                                <label class="form-label"></label>
+                                <input type="text" name="email_user" class="form-control" aria-describedby="emailHelp" placeholder="Email" value="{{$user->email}}">
                                 @error('email_user')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label" >Mật khẩu</label>
-                                <input type="password" name="password_user" class="form-control" value="password">
-                                @error('password')
+                                <label class="form-label" ></label>
+                                <input type="password" id="password_user" name="password_user" class="form-control" maxlength="10" placeholder="Password" value="******">
+                                @error('password_user')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Họ tên hiển thị</label>
-                                <input class="form-control mb-2" name="name_user" type="text" value="{{$user->name}}">
+                                <label class="form-label"></label>
+                                <input class="form-control mb-2" name="name_user" type="text" maxlength="255" placeholder="Họ tên hiển thị" value="{{$user->name}}">
                                 @error('name_user')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-label">Phòng ban</label>
+                                <label class="form-label"></label>
                                 <select name="department_user" class="custom-select">
 
                                     @foreach ($departments as $department)
@@ -60,7 +60,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="exampleInputPassword1">Phân quyền</label>
+                                <label class="form-label" for="exampleInputPassword1"></label>
                                 <select name="role_user" class="custom-select">
 
                                     @foreach ($roles as $role)
@@ -73,7 +73,12 @@
                     </div>
                     <div class="footer-edit-form" style="display: flex; justify-content: space-between;">
                         <button type="submit" class="btn btn-primary">UPDATE</button>
-                        <a class="btn btn-danger" href="{{route('delete_user', [$user->id])}}">DELETE</a>
+  
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#btn_delete">
+                          DELETE
+                        </button>
+                        
+
                     </div>
                 </form>
               </div>
@@ -81,6 +86,47 @@
         </div>
       </div>
     </div>
+</div>
+<div class="modal fade" id="btn_delete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        Bạn muốn delete user này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <a href="{{route('delete_user', [$user->id])}}" class="btn btn-success">OK</a>
+      </div>
+    </div>
   </div>
+</div>
+
+@if(Session::has('message_update'))
+    <!-- Button trigger modal -->
+    <button type="button" id="btn_open_dialog" class="btn btn-primary" data-toggle="modal" hidden data-target="#staticBackdrop">
+      Launch static backdrop modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            Update thành công
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.onload = function(){
+        document.getElementById('btn_open_dialog').click();
+      }
+    </script>
+    @endif
+
 @endsection
+
 

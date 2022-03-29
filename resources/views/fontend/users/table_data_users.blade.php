@@ -64,7 +64,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>Không có dữ liệu</td>
+                      <td>Trống dữ liệu</td>
                       <td></td>
                       <td></td>
                       </tr>
