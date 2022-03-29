@@ -14,6 +14,31 @@
 }
 </style>
     <div class="content">
+        @if (session('status'))
+        <!-- Button trigger modal -->
+            <button type="button" id="btn_open_dialog" class="btn btn-primary" data-toggle="modal" hidden data-target="#staticBackdrop">
+                Launch static backdrop modal
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Create thành công</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <div>
+                            <img src="https://cdn.pixabay.com/photo/2017/04/08/18/17/correct-2214020_960_720.png" alt="" style="width: 120px; height: 120px; margin-left: 200px">
+                        </div>
+                    </button>
+                    </div>
+                    <div class="modal-footer">
+                    <a href="{{route('top_page')}}" class="btn btn-secondary" >ok</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        @endif
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
@@ -23,13 +48,13 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h1 style="color: blue">Create Ticket</h1> --}}
-                            <input type="reset" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px" value="Back" onclick="history.go(-1);">
+                            <a href="{{route('top_page')}}" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">Back</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên" >
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên" maxlength="255">
                                         @error('name')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -137,7 +162,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Mô tả"></textarea>
+                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 436px;" name="description"  value="{{old('description')}}" placeholder="Mô tả"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -162,5 +187,10 @@
 	}); 
  });
 </script>
+<script>
+    window.onload = function(){
+      document.getElementById('btn_open_dialog').click();
+    }
+    </script>
 
 @endsection

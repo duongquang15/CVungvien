@@ -16,11 +16,6 @@
 }
     </style>
     <div class="content">
-        @if (session('status'))
-        <div class="alert alert-primary">
-            {{session('status')}}
-        </div>
-        @endif
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
@@ -29,7 +24,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card">
                         <div class="card-header">
-                            <input type="" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px" value="Back" onclick="history.go(-1);">
+                            <a href="{{route('top_page')}}" class=" btn btn-primary " style="width: 200px; height: 50px;font-size: 18px">Back</a>
                             @if (Auth::user()->role->id == 3)
                             <a href="{{route('edit-ticket',$ticket->id)}}" class=" btn btn-primary float-right text-center " style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">EDIT/UPDATE</a>
                             @endif
@@ -139,7 +134,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 350px;" name="description"  value="{{old('description')}}" placeholder="Mô tả" disabled>{{$ticket->description}}</textarea>
+                                        <textarea class="form-control" name="description" id="" cols="40" rows="3" style="width: 436px;" name="description"  value="{{old('description')}}" placeholder="Mô tả" disabled>{{$ticket->description}}</textarea>
                                     </div>
                                 </div>
                             </div>
