@@ -96,33 +96,35 @@ class UserController extends Controller
         //edit user bởi Thắng Em
         $email = $request->input('email_user');
         $password = $request->input('password_user');
-        $name = $request->input('name_user');
+        $name = trim($request->input('name_user'));
 
         $department = $request->input('department_user');
         $role = $request->input('role_user');
         $request->validate([
-            'email_user'=>'required|min:5|max:255',
-            'password_user'=>'required|not_in:0',
-            'name_user'=>'required|not_in:0',
+            'email_user'=>'required|min:6|max:255|email',
+            'password_user'=>'required|min:6|max:10|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{3,10}$/',
+            'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
         ],
         [
             'required'=>'Chưa nhập :attribute ',
-            'min'=>':attribute độ dài phải trên 5 ký tự',
-            'max'=>':attribute độ dài phải dưới 255 ký tự',
-            'not_in'=>'Chưa nhập :attribute',
-            'name.without_spaces'=>'Nhập sai name',
+            'min'=>'Nhập sai :attribute',
+            'max'=>'Nhập sai :attribute',
+            'email'=>'Email không tồn tại',
+            'regex'=>'Nhập sai :attribute',
+
+            // 'unique'=>':attribute trùng :attribute đã có',
         ],
         [
-            'email_user'=>'UserID',
+            'email_user'=>'Email',
             'password_user'=>'Mật khẩu',
             'name_user'=>'Họ tên',
         ]);
+        $user_check_mail = User::find($id)->first()->email;
         DB::table('users')->where('id', $id)->update(
             ['id' => $id, 'name' => $name, 'email' => $email, 'password' => Hash::make($password), 'department_id' => $department, 'role_id' => $role,
             ]
         );
-
-        return Redirect::back()->with('user', 'departments', 'roles');
+        return Redirect::back()->with('message_update', 'Message Update');
     }
     /**
      * delete user
