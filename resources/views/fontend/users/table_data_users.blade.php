@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col">
             <div class="box-back-sort">
-              <a href="{{route('top_page')}}" class="btn btn-success">BACK</a>
+              <a href="{{route('top_page')}}" class="btn btn-primary" style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">BACK</a>
               <form action="{{route('sort_users')}}" method="POST" onsubmit='return submitForm()'>
                 @csrf
                 <select class="form-control" name="sort_users" id="sort_users" onchange="this.form.submit()">

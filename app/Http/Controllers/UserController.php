@@ -94,37 +94,85 @@ class UserController extends Controller
         $departments = Department::all();
         $roles = Role::all();
         //edit user bởi Thắng Em
-        $email = $request->input('email_user');
-        $password = $request->input('password_user');
-        $name = trim($request->input('name_user'));
 
-        $department = $request->input('department_user');
-        $role = $request->input('role_user');
-        $request->validate([
-            'email_user'=>'required|min:6|max:255|email',
-            'password_user'=>'required|min:6|max:10|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{3,10}$/',
-            'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
-        ],
-        [
-            'required'=>'Chưa nhập :attribute ',
-            'min'=>'Nhập sai :attribute',
-            'max'=>'Nhập sai :attribute',
-            'email'=>'Email không tồn tại',
-            'regex'=>'Nhập sai :attribute',
+        if ($request->input('password_user') == null) 
+        {
+            $email = $request->input('email_user');
+            $password = $request->input('password_user');
+            $name = trim($request->input('name_user'));
+            $department = $request->input('department_user');
+            $role = $request->input('role_user');
+            $request->validate([
+                'email_user'=>'required|min:6|max:255|email',
+                'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
+                ],
+                [
+                    'required'=>'Chưa nhập :attribute ',
+                    'min'=>'Nhập sai :attribute',
+                    'max'=>'Nhập sai :attribute',
+                    'email'=>'Email không tồn tại',
+                    'regex'=>'Nhập sai :attribute',
 
-            // 'unique'=>':attribute trùng :attribute đã có',
-        ],
-        [
-            'email_user'=>'Email',
-            'password_user'=>'Mật khẩu',
-            'name_user'=>'Họ tên',
-        ]);
-        $user_check_mail = User::find($id)->first()->email;
-        DB::table('users')->where('id', $id)->update(
-            ['id' => $id, 'name' => $name, 'email' => $email, 'password' => Hash::make($password), 'department_id' => $department, 'role_id' => $role,
-            ]
-        );
-        return Redirect::back()->with('message_update', 'Message Update');
+                    // 'unique'=>':attribute trùng :attribute đã có',
+                ],
+                [
+                    'email_user'=>'Email',
+                    'name_user'=>'Họ tên',
+                ]);
+                $user_old_email = User::find($id)->email;
+                $user_list = User::all();
+                // foreach so sánh email mới nhập bị trùng
+                foreach ($user_list as $user) {
+                    if ($email !== $user_old_email && $email == $user->email) {
+                        return Redirect::back()->with('message_update_email', 'Email trùng Email đã có');
+                    }
+                }
+            DB::table('users')->where('id', $id)->update(
+                ['id' => $id, 'name' => $name, 'email' => $email, 'department_id' => $department, 'role_id' => $role,
+                ]
+            );
+            return Redirect::back()->with('message_update', 'Message Update');
+        }
+        else 
+        {
+            $email = $request->input('email_user');
+            $password = $request->input('password_user');
+            $name = trim($request->input('name_user'));
+            $department = $request->input('department_user');
+            $role = $request->input('role_user');
+            $request->validate([
+                'email_user'=>'required|min:6|max:255|email',
+                'password_user'=>'min:6|max:10|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{3,10}$/',
+                'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
+            ],
+            [
+                'required'=>'Chưa nhập :attribute',
+                'min'=>'Nhập sai :attribute',
+                'max'=>'Nhập sai :attribute',
+                'email'=>'Email không tồn tại',
+                'regex'=>'Nhập sai :attribute',
+
+                // 'unique'=>':attribute trùng :attribute đã có',
+            ],
+            [
+                'email_user'=>'Email',
+                'password_user'=>'Mật khẩu',
+                'name_user'=>'Họ tên',
+            ]);
+            $user_old_email = User::find($id)->email;
+            $user_list = User::all();
+            // foreach so sánh email mới nhập bị trùng
+            foreach ($user_list as $user) {
+                if ($email !== $user_old_email && $email == $user->email) {
+                    return Redirect::back()->with('message_update_email', 'Email trùng Email đã có');
+                }
+            }
+            DB::table('users')->where('id', $id)->update(
+                ['id' => $id, 'name' => $name, 'email' => $email, 'password' => Hash::make($password), 'department_id' => $department, 'role_id' => $role,
+                ]
+            );
+            return Redirect::back()->with('message_update', 'Message Update');
+        }
     }
     /**
      * delete user
