@@ -151,6 +151,10 @@ class TicketController extends Controller
                 $get_level = Level::where('name','=', $name)->first();
                 if(isset($get_level)){
                     $level_id = $get_level['id'];
+                    DB::table('job_level')->insert([
+                        'job_id' => $job,
+                        'level_id'=> $level_id,
+                    ]);
                     $data = [
                         'name' => 'yes',
                         'level_id'=> $level_id,
@@ -159,6 +163,10 @@ class TicketController extends Controller
                     $level = Level::where('id','=', $name)->first();
                 if(isset($level)){
                     $level_id = $level['id'];
+                    DB::table('job_level')->insert([
+                        'job_id' => $job,
+                        'level_id'=> $level_id,
+                    ]);
                     $data = [
                         'name' => 'yes',
                         'level_id'=> $level_id,

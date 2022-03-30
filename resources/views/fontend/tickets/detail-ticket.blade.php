@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <label for="description">Thời gian thao tác</label>
-                                <h5>{{$ticket->updated_at}}</h5>
+                                <h5><?php echo date('d-m-Y', strtotime($ticket->updated_at)); ?></h5>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <label for="description">Nội dung thao tác</label>
