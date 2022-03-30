@@ -17,7 +17,7 @@
 
   
                 <nav class="card-header-actions">
-                    <a href="{{url('/table-data-users')}}" class="btn btn-info">Back</a>
+                    <a href="{{url('/table-data-users')}}" class="btn btn-primary" style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">Back</a>
                 </nav>
   
               </div>
@@ -28,14 +28,19 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="form-label"></label>
-                                <input type="text" name="email_user" class="form-control" aria-describedby="emailHelp" placeholder="Email" value="{{$user->email}}">
+                                <input type="text" name="email_user" class="form-control" aria-describedby="emailHelp" maxlength="255" placeholder="Email" value="{{$user->email}}">
                                 @error('email_user')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
+
+                                @if(Session::has('message_update_email'))
+                                <small class="form-text text-danger">{{Session::get('message_update_email')}}</small>
+                                @endif
+
                             </div>
                             <div class="form-group">
                                 <label class="form-label" ></label>
-                                <input type="password" id="password_user" name="password_user" class="form-control" maxlength="10" placeholder="Password" value="******">
+                                <input type="password" id="password_user" name="password_user" class="form-control" maxlength="10" placeholder="New pass">
                                 @error('password_user')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
@@ -72,9 +77,9 @@
                         </div>
                     </div>
                     <div class="footer-edit-form" style="display: flex; justify-content: space-between;">
-                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                        <button type="submit" class="btn btn-primary" style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">UPDATE</button>
   
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#btn_delete">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#btn_delete" style="width: 200px; height: 50px;font-size: 18px; line-height: 40px">
                           DELETE
                         </button>
                         
