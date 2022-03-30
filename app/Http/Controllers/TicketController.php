@@ -148,10 +148,20 @@ class TicketController extends Controller
             $job = $request->input('job');
             $name = $request->input('id');
             // if($name != 0 ){
-                $level = Level::where('id', $name)->get()->first();
-                if(isset($level)){
+                $get_level = Level::where('name','=', $name)->first();
+                if(isset($get_level)){
+                    $level_id = $get_level['id'];
                     $data = [
-                        'name' => $name,
+                        'name' => 'yes',
+                        'level_id'=> $level_id,
+                    ];
+                }else{
+                    $level = Level::where('id','=', $name)->first();
+                if(isset($level)){
+                    $level_id = $level['id'];
+                    $data = [
+                        'name' => 'yes',
+                        'level_id'=> $level_id,
                     ];
                 }
                 else{
@@ -182,6 +192,8 @@ class TicketController extends Controller
                         'level_id'=>$level_id,
                     ];
                 }
+                }
+                
             return response()->json(['status' => 200, 'data' => $data]);
             // }
          }
