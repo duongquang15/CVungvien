@@ -31,7 +31,7 @@ class TicketController extends Controller
     }
     function stores(Request $request){
         $request->validate([
-            'name'=>'required|regex:/^[a-zA-ZÑñ\s]+$/',
+            'name'=>'required|regex:/^[\pL\s\-]+$/u',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             'status'=>'required|not_in:0',
@@ -241,7 +241,7 @@ class TicketController extends Controller
 
     function update(Request $request, $id){
         $request->validate([
-            'name'=>'required|regex:/^[a-zA-ZÑñ\s]+$/',
+            'name'=>'required|regex:/^[\pL\s\-]+$/u',
             'job'=>'required|not_in:0',
             'level'=>'required|not_in:0',
             'status'=>'required|not_in:0',
