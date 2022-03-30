@@ -90,11 +90,12 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="choose-file" class="custom-file-upload" id="choose-file-label" >
+                                        <label for="choose-file" class="custom-file-upload" id="choose-file-label cv" >
                                             UPLAOD CV
                                          </label>
                                          <input name="file" type="file" id="choose-file"  
                                             accept=".jpg,.jpeg,.pdf,doc,docx,application/msword,.png" style="display: none"/>
+                                            <span id="img"></span>
                                         @error('file')
                                         <small class="form-text text-danger">{{$message}}</small>
                                         @enderror
@@ -199,5 +200,27 @@
     window.onload = function(){
       document.getElementById('btn_open_dialog').click();
     }
+    </script>
+    <script>
+        $(document).ready(function () {
+        $('#choose-file').change(function () {
+            var i = $(this).prev('label').clone();
+            var file = $('#choose-file')[0].files[0].name;
+            var img ='';
+            img ='<img id="delete-img" src="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_960_720.png" style="width: 20px; height: 20px;">';
+            $(this).prev('label').text(file);
+            $("#img").html(img);
+        }); 
+    
+         $("#img").click(function(){
+            document.getElementById('choose-file').value = "";
+            console.log('hhrr');
+            ds = 'UPLOAD CV';
+            $('#choose-file').prev().text(ds);
+            $("#img").html('');
+        }); 
+       
+    
+     });
     </script>
 @endsection
