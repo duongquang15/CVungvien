@@ -120,7 +120,7 @@
             Update thành công
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            <a type="button" class="btn btn-success" href="{{route('table_data_users')}}">OK</a>
           </div>
         </div>
       </div>
