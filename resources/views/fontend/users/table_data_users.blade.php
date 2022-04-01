@@ -53,14 +53,15 @@
                       <td>{{$user->name}}</td>
                       <td>{{$user->department->name}}</td>
                       <td>
-                        <span class="badge badge-pill badge-primary">{{$user->role->name}}</span>
+                        {{$user->role->name}}
+                        {{-- <span class="badge badge-pill badge-primary">{{$user->role->name}}</span> --}}
                       </td>
                       <td>{{$user->created_at}}</td>
                       <td>{{$user->created_by}}</td>
                       </tr>
                     @endforeach
                     @else 
-                    <tr>
+                    <tr>\
                       <td></td>
                       <td></td>
                       <td></td>

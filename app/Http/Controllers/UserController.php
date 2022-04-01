@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
 use App\Role;
+use App\Rules\DuplicateEmail;
 use App\Ticket;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -90,20 +91,20 @@ class UserController extends Controller
 
     public function updateUser(Request $request, $id)
     {
-        $user = User::find($id);
-        $departments = Department::all();
-        $roles = Role::all();
-        //edit user bởi Thắng Em
+        //rule
+        $users = User::all();
+        $user_old_email = User::find($id)->email;
+        //end rule
+        $email = $request->input('email_user');
+        $password = $request->input('password_user');
+        $name = trim($request->input('name_user'));
+        $department = $request->input('department_user');
+        $role = $request->input('role_user');
 
         if ($request->input('password_user') == null) 
         {
-            $email = $request->input('email_user');
-            $password = $request->input('password_user');
-            $name = trim($request->input('name_user'));
-            $department = $request->input('department_user');
-            $role = $request->input('role_user');
             $request->validate([
-                'email_user'=>'required|min:6|max:255|email',
+                'email_user'=>['required', 'min:6', 'max:255', 'email', new DuplicateEmail($users, $user_old_email)],
                 'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
                 ],
                 [
@@ -112,21 +113,12 @@ class UserController extends Controller
                     'max'=>'Nhập sai :attribute',
                     'email'=>'Email không tồn tại',
                     'regex'=>'Nhập sai :attribute',
-
-                    // 'unique'=>':attribute trùng :attribute đã có',
                 ],
                 [
                     'email_user'=>'Email',
                     'name_user'=>'Họ tên',
                 ]);
-                $user_old_email = User::find($id)->email;
-                $user_list = User::all();
-                // foreach so sánh email mới nhập bị trùng
-                foreach ($user_list as $user) {
-                    if ($email !== $user_old_email && $email == $user->email) {
-                        return Redirect::back()->with('message_update_email', 'Email trùng Email đã có');
-                    }
-                }
+
             DB::table('users')->where('id', $id)->update(
                 ['id' => $id, 'name' => $name, 'email' => $email, 'department_id' => $department, 'role_id' => $role,
                 ]
@@ -135,13 +127,8 @@ class UserController extends Controller
         }
         else 
         {
-            $email = $request->input('email_user');
-            $password = $request->input('password_user');
-            $name = trim($request->input('name_user'));
-            $department = $request->input('department_user');
-            $role = $request->input('role_user');
             $request->validate([
-                'email_user'=>'required|min:6|max:255|email',
+                'email_user'=>['required', 'min:6', 'max:255', 'email', new DuplicateEmail($users, $user_old_email)],
                 'password_user'=>'min:6|max:10|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{3,10}$/',
                 'name_user'=>'required|max:255|regex:/^[\pL\s\-]+$/u',
             ],
@@ -151,22 +138,12 @@ class UserController extends Controller
                 'max'=>'Nhập sai :attribute',
                 'email'=>'Email không tồn tại',
                 'regex'=>'Nhập sai :attribute',
-
-                // 'unique'=>':attribute trùng :attribute đã có',
             ],
             [
                 'email_user'=>'Email',
                 'password_user'=>'Mật khẩu',
                 'name_user'=>'Họ tên',
             ]);
-            $user_old_email = User::find($id)->email;
-            $user_list = User::all();
-            // foreach so sánh email mới nhập bị trùng
-            foreach ($user_list as $user) {
-                if ($email !== $user_old_email && $email == $user->email) {
-                    return Redirect::back()->with('message_update_email', 'Email trùng Email đã có');
-                }
-            }
             DB::table('users')->where('id', $id)->update(
                 ['id' => $id, 'name' => $name, 'email' => $email, 'password' => Hash::make($password), 'department_id' => $department, 'role_id' => $role,
                 ]
