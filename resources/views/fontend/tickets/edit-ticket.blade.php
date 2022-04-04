@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label for="defaultSelect">level</label>
                                         <select class="form-control form-control select2" name="level" id="level">
-                                            @foreach ($level as $key => $item)
+                                            @foreach ($level_by_job as $key => $item)
                                                 <option  <?php if($ticket_level->name == $item['name']) echo "selected" ?> value="{{ $item['id']}}">{{ $item['name'] }}</option>
                                             @endforeach
                                         </select>
