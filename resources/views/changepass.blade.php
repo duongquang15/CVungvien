@@ -8,6 +8,9 @@
                 <div class="card-header">
                 <img src="{{asset('assets/img/ominext1.png')}}" alt="" style="width: 200px;;border-radius:0.25em">
                 </div>
+                <button type="submit" onclick="goBack()" class="btn btn-primary">
+                  {{ __('Back') }}
+              </button>
 
                 <div class="card-body">
                     <form method="POST" id="myform" action="{{ route('changepassword') }}">
@@ -41,8 +44,9 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary" style="width: 424px;
+                                margin-left: -5px;">
                                     {{ __('Change Password') }}
                                 </button>
                             </div>
@@ -92,6 +96,10 @@ $( "#myform" ).validate({
     }
   }
 });
+
+function goBack() {
+        window.history.back();
+    }
 </script>
 <!-- <style>
     #field{margin-left:.5em;float:left}#field,label{float:left;font-family:Arial,Helvetica,sans-serif;font-size:small}br{clear:both}input{border:1px solid #ADD8E6;margin-bottom:.5em}input.error{border:1px solid red}label.error{background:url({{asset('assets/img/nhando.png')}}) no-repeat;padding-left:16px;margin-left:.3em}label.valid{background:url({{asset('assets/img/tich.png')}}) no-repeat;display:block;width:16px;height:16px}

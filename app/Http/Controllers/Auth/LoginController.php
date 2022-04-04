@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+// use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -37,4 +41,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    // public function login(Request $request){
+        
+    //     $email=$request->input('email');
+    //     $isExist = User::select("*")
+    //         ->where("email", $email)
+    //         ->exists();
+   
+    //     if ($isExist) {
+    //         echo"";
+    //     }else{
+    //         echo "UserId ko tồn tại";
+    //     }
+    // }
 }
