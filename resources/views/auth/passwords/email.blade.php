@@ -10,13 +10,21 @@
                 </div>
 
                 <button type="submit" onclick="goBack()" class="btn btn-primary">
-                                    {{ __('Back') }}
+                    {{ __('Back') }}
                 </button>
 
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
+                        <!-- {{ session('status') }} -->
+                        
+                        @if (session('status') == 'We have emailed your password reset link!')
+                            Đã gửi mail reset password
+
+                        @else {
+                            echo (session('status'));
+                        } 
+                        @endif
                     </div>
                     @endif
 
@@ -28,16 +36,13 @@
                             <div class="forgot" style="padding-top: 50px;">
                                 <input id="email" maxlength="255" type="email" class="form-control" name="email" value="{{ old('email') }}" autocomplete="email" autofocus placeholder="Email">
 
-
-
-
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row">
                             <div class="forgotpass1" style="display:flex">
-                                
+
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send') }}
                                 </button>
@@ -51,7 +56,7 @@
     </div>
 </div>
 <style>
-    .error{
+    .error {
         margin-left: 50px;
     }
 </style>
@@ -61,16 +66,16 @@
             email: {
                 required: true,
                 email: true,
-                regex: /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/,
-                
+
+
             }
         },
         messages: {
             email: {
                 required: "Chưa nhập Email",
                 email: "Nhập sai Email",
-                regex: "ko đúng định dạng",
-                
+
+
             }
         }
     });

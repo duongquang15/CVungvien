@@ -26,13 +26,7 @@
 
                         <div class="form-group row">
                             <div class="col-12">
-                                <input id="password" type="password" maxlength="10" onKeyUp="checkPasswordStrength();" class="form-control demoInputBox @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New pass">
-                                <div id="password-strength-status"></div>
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                <input id="password" type="password" maxlength="10" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New pass">
                             </div>
 
                         </div>
@@ -56,40 +50,9 @@
         </div>
     </div>
 </div>
-
-
-
 <style>
     .error {
         margin: 0;
-    }
-
-    .demoInputBox {
-        padding: 7px;
-        /* border: #F0F0F0 1px solid; */
-        /* border-radius: 4px; */
-    }
-
-    #password-strength-status {
-        padding: 5px 0px;
-        /* color: #FFFFFF; */
-        border-radius: 4px;
-        margin-top: 5px;
-    }
-
-    .medium-password {
-        color: #b7d60a;
-        /* border: #BBB418 1px solid; */
-    }
-
-    .weak-password {
-        color: red;
-        /* border: #AA4502 1px solid; */
-    }
-
-    .strong-password {
-        color: #12CC1A;
-        /* border: #0FA015 1px solid; */
     }
 </style>
 <script>
@@ -118,27 +81,5 @@
 
         }
     });
-</script>
-<script>
-    function checkPasswordStrength() {
-        var number = /([0-9])/;
-        var alphabets = /([a-zA-Z])/;
-        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
-        if ($('#password').val().length < 6) {
-            $('#password-strength-status').removeClass();
-            $('#password-strength-status').addClass('weak-password');
-            $('#password-strength-status').html("Password yếu (nên có ít nhất 6 ký tự))");
-        } else {
-            if ($('#password').val().match(number) && $('#password').val().match(alphabets) && $('#password').val().match(special_characters)) {
-                $('#password-strength-status').removeClass();
-                $('#password-strength-status').addClass('strong-password');
-                $('#password-strength-status').html("Password mạnh");
-            } else {
-                $('#password-strength-status').removeClass();
-                $('#password-strength-status').addClass('medium-password');
-                $('#password-strength-status').html("Password Trung bình (nên bao gồm bảng chữ cái, số và các ký tự đặc biệt.))");
-            }
-        }
-    }
 </script>
 @endsection

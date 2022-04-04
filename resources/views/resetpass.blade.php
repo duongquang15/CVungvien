@@ -22,7 +22,7 @@
 
     </div>
     
-<div style=""><input class="btn btn-primary" type="submit" value="Reset" style="margin-top: 10px;margin-left: 170px;width: 100px;margin-bottom: 25px;"></div>
+<div><input class="btn btn-primary" type="submit" value="Reset" style="margin-top: 10px;margin-left: 170px;width: 100px;margin-bottom: 25px;"></div>
 </form>
 <script>
 // just for the demos, avoids form submit

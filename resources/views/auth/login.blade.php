@@ -29,16 +29,20 @@
               <div class="col-md-12">
                 <div class="login">
                   <!-- <i class="fa fa-users" aria-hidden="true"s></i> -->
-                  <input id="email" type="email" maxlength="255" class="form-control @error('email') @enderror" name="email" placeholder="UserID">
+                  <input id="email" type="email" maxlength="255" class="form-control @error('email') @enderror" name="email" placeholder="UserID" onblur="checkuser(this.value)">
                   @error('email')
                   <p class="invalid-feedback" role="alert">
                     <label style="margin-left: 30px;margin-top:30px; position: absolute;top:58px;color:red;font-size:15px"><?php if ($message == 'These credentials do not match our records.') echo ('Nhập sai password');
-                                                        else {
-                                                          echo ($message);
-                                                        } ?></label>
+                        else {
+                          echo ($message);
+                        } ?></label>
                   </p>
                   @enderror
-
+                  {{-- @error('email')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror --}}
                 </div>
 
                 <div class="login1">
@@ -46,11 +50,11 @@
                   <input id="password" type="password" maxlength="10" class="form-control demoInputBox @error('password') is-invalid @enderror" onKeyUp="checkPasswordStrength();" name="password" placeholder="Pass">
                   <div id="password-strength-status" style="margin-left:30px"></div> <br />
                   <!-- <i class="fa fa-eye"  aria-hidden="true" onclick="myFunction()"></i> -->
-                  <!-- @error('password')
+                  @error('password')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
-                  @enderror -->
+                  @enderror
                 </div>
 
 
@@ -140,6 +144,7 @@
       email: {
         required: true,
         email: true,
+        maxlength: 255,
       },
       password: {
         required: true,
@@ -150,7 +155,8 @@
     messages: {
       email: {
         required: "Chưa nhập userID",
-        email: "Nhập sai email",
+        email: "Nhập sai userID",
+        maxlength: "Nhập sai userID",
       },
       password: {
         required: "Chưa nhập password",
@@ -160,7 +166,7 @@
     }
   });
 </script>
-<script>
+{{-- <script>
   function checkPasswordStrength() {
     var number = /([0-9])/;
     var alphabets = /([a-zA-Z])/;
@@ -181,19 +187,12 @@
       }
     }
   }
-</script>
+</script> --}}
 <script>
-    function validateform() {
-        var name = document.myform.name.value;
-        var password = document.myform.password.value;
- 
-        if (name == null || name == "") {
-            alert("Name can't be blank");
-            return false;
-        } else if (password.length < 6) {
-            alert("Password must be at least 6 characters long.");
-            return false;
-        }
+    function checkuser(email){
+      $.post('checkemail.php',{'email':email} ,function(data){
+        
+      });
     }
 </script>
 @endsection
