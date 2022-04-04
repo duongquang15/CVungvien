@@ -161,17 +161,13 @@ class TicketController extends Controller
                     ];
                 }else{
                     $level = Level::where('id','=', $name)->first();
-                if(isset($level)){
-                    $level_id = $level['id'];
-                    DB::table('job_level')->insert([
-                        'job_id' => $job,
-                        'level_id'=> $level_id,
-                    ]);
-                    $data = [
-                        'name' => 'yes',
-                        'level_id'=> $level_id,
-                    ];
-                }
+                    if(isset($level)){
+                        $level_id = $level['id'];
+                        $data = [
+                            'name' => 'yes',
+                            // 'level_id'=> $level_id,
+                        ];
+                    }
                 else{
                     $levels_count = DB::table('levels')
                     ->where('name', '=', $name)
@@ -199,10 +195,11 @@ class TicketController extends Controller
                         'name' => 'yes',
                         'level_id'=>$level_id,
                     ];
+                    return response()->json(['status' => 200, 'data' => $data]);
                 }
                 }
                 
-            return response()->json(['status' => 200, 'data' => $data]);
+            
             // }
          }
     }
@@ -226,8 +223,10 @@ class TicketController extends Controller
 
     function edit($id){
         $name = Auth::user()->name;
-        $job = Job::all();
+        $job_id = Ticket::find($id)->job->id;
+        $level_by_job = Job::find($job_id)->levels;
         $level = Level::all();
+        $job = Job::all();
         $user = User::all();
         $department = Department::all();
         $ticket = Ticket::find($id);
@@ -235,7 +234,7 @@ class TicketController extends Controller
         $ticket_level = Ticket::find($id)->level;
         $ticket_department = Ticket::find($id)->departments;
         $user_assigns = Ticket::find($id)->users;
-        return view('fontend.tickets.edit-ticket', compact('name','ticket','job','ticket_job','ticket_level','user','level','department','ticket_department','user_assigns'));
+        return view('fontend.tickets.edit-ticket', compact('name','ticket','job','ticket_job','ticket_level','user','level','department','ticket_department','user_assigns','level_by_job'));
     }
 
     function detail($id){
